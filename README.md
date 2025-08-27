@@ -1,5 +1,12 @@
 # Circuit-Visualize-YANS2025
 
+## 🌐 デモサイト
+
+以下の URL からデモをブラウザ上で直接体験できます：
+
+🔗 [https://circuit-visualize-yans2025-xxszotqmqkoetu3jwnt3gk.streamlit.app/](https://circuit-visualize-yans2025-xxszotqmqkoetu3jwnt3gk.streamlit.app/)
+
+
 ## macOS でのインストールと起動 （uv + Homebrew）
 
 ```bash
