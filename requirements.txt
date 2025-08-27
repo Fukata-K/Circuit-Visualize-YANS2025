@@ -5,3 +5,5 @@ transformer-lens==2.16.1
 matplotlib==3.10.3
 scipy==1.16.0
 scikit-learn==1.7.0
+datasets==2.18.0
+pyarrow==14.0.2
