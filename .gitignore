@@ -1,0 +1,26 @@
+# Python キャッシュファイル
+__pycache__/
+*.py[cod]
+*.pyd
+*.so
+
+# 配布・ビルド関連
+build/
+dist/
+*.egg-info/
+
+# 仮想環境・環境設定
+.venv/
+venv/
+env/
+.env
+*.env
+
+# エディタや OS の一時ファイル
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# サーキット図
+demo/figures/

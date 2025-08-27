@@ -1,0 +1,13 @@
+Task_ID,clean,subject,object,correct_idx,corrupted,corrupted_object,incorrect_idx
+1,Rio de Janeiro is located in the country of,Rio de Janeiro, Brazil,7595,Addis Ababa is located in the country of, Ethiopia,31592
+2,Buenos Aires is located in the country of,Buenos Aires, Argentina,16519,Panama City is located in the country of, Panama,23519
+3,Mexico City is located in the country of,Mexico City, Mexico,5828,Hong Kong is located in the country of, China,2807
+4,São Paulo is located in the country of,São Paulo, Brazil,7595,Casablanca is located in the country of, Morocco,29638
+6,Saint Petersburg is located in the country of,Saint Petersburg, Russia,3284,Hong Kong is located in the country of, China,2807
+8,Ho Chi Minh City is located in the country of,Ho Chi Minh City, Vietnam,10836,Port-au-Prince is located in the country of, Haiti,25051
+9,Kuala Lumpur is located in the country of,Kuala Lumpur, Malaysia,15336,São Paulo is located in the country of, Brazil,7595
+12,New Delhi is located in the country of,New Delhi, India,3794,Tel Aviv is located in the country of, Israel,2692
+15,Tel Aviv is located in the country of,Tel Aviv, Israel,2692,Los Angeles is located in the country of, United States,1578
+16,Johannesburg is located in the country of,Johannesburg, South Africa,2520,Port-au-Prince is located in the country of, Haiti,25051
+19,Santiago de Chile is located in the country of,Santiago de Chile, Chile,17456,Johannesburg is located in the country of, South Africa,2520
+23,San Juan is located in the country of,San Juan, Puerto Rico,15295,San Francisco is located in the country of, United States,1578

@@ -1,0 +1,17 @@
+Task_ID,clean,subject,object,correct_idx,corrupted,corrupted_object,incorrect_idx
+0,A farmer typically works at a,A farmer, farm,5318,A firefighter typically works at a, fire station,2046
+2,A teacher typically works at a,A teacher, school,1524,A secretary typically works at a, office,2607
+6,A baker typically works at a,A baker, bakery,38164,A surgeon typically works at a, hospital,4436
+9,A doctor typically works at a,A doctor, hospital,4436,A chef typically works at a, kitchen,9592
+11,A firefighter typically works at a,A firefighter, fire station,2046,A lawyer typically works at a, courthouse,33625
+16,A librarian typically works at a,A librarian, library,5888,A pharmacist typically works at a, pharmacy,32763
+19,A nurse typically works at a,A nurse, hospital,4436,A pilot typically works at a, airplane,19401
+20,A painter typically works at a,A painter, studio,8034,A surgeon typically works at a, hospital,4436
+21,A pharmacist typically works at a,A pharmacist, pharmacy,32763,A insurance agent typically works at a, office,2607
+22,A photographer typically works at a,A photographer, studio,8034,A lawyer typically works at a, courthouse,33625
+26,A scientist typically works at a,A scientist, laboratory,14010,A accountant typically works at a, office,2607
+28,A soldier typically works at a,A soldier, military base,2422,A accountant typically works at a, office,2607
+31,A surgeon typically works at a,A surgeon, hospital,4436,A lawyer typically works at a, courthouse,33625
+32,A trainer typically works at a,A trainer, gym,11550,A baker typically works at a, bakery,38164
+34,A waitress typically works at a,A waitress, restaurant,7072,A trainer typically works at a, gym,11550
+35,A waiter typically works at a,A waiter, restaurant,7072,A farmer typically works at a, farm,5318

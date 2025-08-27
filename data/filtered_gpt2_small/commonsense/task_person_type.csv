@@ -1,0 +1,14 @@
+Task_ID,clean,subject,object,correct_idx,corrupted,corrupted_object,incorrect_idx
+0,Researching history is best suited for someone with the role of a,Researching history, historian,18026,Delivering mail is best suited for someone with the role of a, mail carrier,6920
+3,Baking cakes is best suited for someone with the role of a,Baking cakes, baker,46412,Performing surgeries is best suited for someone with the role of a, surgeon,23923
+5,Directing movies is best suited for someone with the role of a,Directing movies, director,3437,Investigating crimes is best suited for someone with the role of a, detective,20775
+12,Managing hotels is best suited for someone with the role of a,Managing hotels, hotel manager,7541,Leading teams is best suited for someone with the role of a, leader,3554
+13,Farming is best suited for someone with the role of a,Farming, farmer,18739,Reporting news is best suited for someone with the role of a, journalist,10099
+14,Analyzing genetics is best suited for someone with the role of a,Analyzing genetics, geneticist,8513,Driving trucks is best suited for someone with the role of a, truck driver,7779
+15,Flying airplanes is best suited for someone with the role of a,Flying airplanes, pilot,8022,Making clothes is best suited for someone with the role of a, fashion designer,6977
+20,Treating animals is best suited for someone with the role of a,Treating animals, veterinarian,41404,Investigating crimes is best suited for someone with the role of a, detective,20775
+22,Providing legal advice is best suited for someone with the role of a,Providing legal advice, lawyer,6853,Translating books is best suited for someone with the role of a, translator,33417
+24,Reporting news is best suited for someone with the role of a,Reporting news, journalist,10099,Flying airplanes is best suited for someone with the role of a, pilot,8022
+27,Teaching students is best suited for someone with the role of a,Teaching students, teacher,4701,Exploring space is best suited for someone with the role of a, astronaut,33779
+28,Cooking meals is best suited for someone with the role of a,Cooking meals, chef,21221,Designing buildings is best suited for someone with the role of a, architect,7068
+29,Performing surgeries is best suited for someone with the role of a,Performing surgeries, surgeon,23923,Baking cakes is best suited for someone with the role of a, baker,46412

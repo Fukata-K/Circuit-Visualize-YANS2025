@@ -1,0 +1,45 @@
+Task_ID,clean,subject,object,correct_idx,corrupted,corrupted_object,incorrect_idx
+7,Windows Server 2003 is a product of,Windows Server 2003, Microsoft,5413,DVD Studio Pro is a product of, Apple,4196
+10,Game Boy Advance SP is a product of,Game Boy Advance SP, Nintendo,9714,Acura ZDX is a product of, Honda,20059
+30,Windows Live Mail is a product of,Windows Live Mail, Microsoft,5413,Chromecast is a product of, Google,3012
+73,Windows 2000 is a product of,Windows 2000, Microsoft,5413,CICS is a product of, IBM,19764
+103,Chromebook Pixel is a product of,Chromebook Pixel, Google,3012,Resource Access Control Facility is a product of, IBM,19764
+111,MacBook Air is a product of,MacBook Air, Apple,4196,Active Server Pages is a product of, Microsoft,5413
+117,Game Boy Advance is a product of,Game Boy Advance, Nintendo,9714,Final Cut Pro is a product of, Apple,4196
+120,Windows Vista is a product of,Windows Vista, Microsoft,5413,Xcode is a product of, Apple,4196
+133,Windows 7 is a product of,Windows 7, Microsoft,5413,Exmor is a product of, Sony,10184
+137,MacBook Pro is a product of,MacBook Pro, Apple,4196,Sileighty is a product of, Nissan,28190
+141,Game Boy Micro is a product of,Game Boy Micro, Nintendo,9714,Internet Explorer 11 is a product of, Microsoft,5413
+142,PlayStation Eye is a product of,PlayStation Eye, Sony,10184,Windows Communication Foundation is a product of, Microsoft,5413
+153,Super Game Boy is a product of,Super Game Boy, Nintendo,9714,MacBook Air is a product of, Apple,4196
+170,Windows 98 is a product of,Windows 98, Microsoft,5413,TextEdit is a product of, Apple,4196
+172,Internet Explorer 5 is a product of,Internet Explorer 5, Microsoft,5413,The Ocean Hunter is a product of, Sega,29490
+175,Windows XP is a product of,Windows XP, Microsoft,5413,Fortran is a product of, IBM,19764
+181,Windows NT 3.1 is a product of,Windows NT 3.1, Microsoft,5413,Shahab-2 is a product of, Iran,4068
+188,Internet Explorer is a product of,Internet Explorer, Microsoft,5413,Mother 3 is a product of, Nintendo,9714
+196,Xbox One is a product of,Xbox One, Microsoft,5413,MVS is a product of, IBM,19764
+199,Windows Server 2008 is a product of,Windows Server 2008, Microsoft,5413,OpenAFS is a product of, IBM,19764
+200,Windows Internet Explorer 7 is a product of,Windows Internet Explorer 7, Microsoft,5413,Mac OS X Panther is a product of, Apple,4196
+223,Windows Live Messenger is a product of,Windows Live Messenger, Microsoft,5413,IBeacon is a product of, Apple,4196
+225,Windows 8 is a product of,Windows 8, Microsoft,5413,Blogger is a product of, Google,3012
+249,Internet Explorer 11 is a product of,Internet Explorer 11, Microsoft,5413,Shining Hearts is a product of, Sega,29490
+250,Windows XP Media Center Edition is a product of,Windows XP Media Center Edition, Microsoft,5413,Alfa Romeo 155 is a product of, Fiat,23327
+256,Windows 10 is a product of,Windows 10, Microsoft,5413,Tamarin is a product of, Adobe,21771
+267,Process Explorer is a product of,Process Explorer, Microsoft,5413,VoiceOver is a product of, Apple,4196
+277,Visual Basic .NET is a product of,Visual Basic .NET, Microsoft,5413,YF-22 is a product of, Boeing,17880
+279,Windows NT is a product of,Windows NT, Microsoft,5413,VP9 is a product of, Google,3012
+297,Windows Server 2008 R2 is a product of,Windows Server 2008 R2, Microsoft,5413,Infiniti JX is a product of, Nissan,28190
+298,Windows Internet Explorer 9 is a product of,Windows Internet Explorer 9, Microsoft,5413,TorqueFlite is a product of, Chrysler,36477
+318,Windows 8.1 is a product of,Windows 8.1, Microsoft,5413,Jeep Grand Cherokee is a product of, Chrysler,36477
+329,Windows Internet Explorer 8 is a product of,Windows Internet Explorer 8, Microsoft,5413,SNES-CD is a product of, Nintendo,9714
+334,Windows NT 3.5 is a product of,Windows NT 3.5, Microsoft,5413,SPSS Modeler is a product of, IBM,19764
+352,Windows 95 is a product of,Windows 95, Microsoft,5413,Fonz is a product of, Sega,29490
+389,Windows Server 2012 is a product of,Windows Server 2012, Microsoft,5413,Squeak is a product of, Apple,4196
+392,Windows Media Player is a product of,Windows Media Player, Microsoft,5413,GarageBand is a product of, Apple,4196
+407,.NET Framework is a product of,.NET Framework, Microsoft,5413,Mac OS 9 is a product of, Apple,4196
+415,Windows Update is a product of,Windows Update, Microsoft,5413,Xsan is a product of, Apple,4196
+416,Internet Explorer 10 is a product of,Internet Explorer 10, Microsoft,5413,Prince R380 is a product of, Nissan,28190
+451,Android Jelly Bean is a product of,Android Jelly Bean, Google,3012,MacsBug is a product of, Apple,4196
+456,Windows Live Writer is a product of,Windows Live Writer, Microsoft,5413,Kindle Fire is a product of, Amazon,6186
+467,Windows Messaging is a product of,Windows Messaging, Microsoft,5413,IPod Touch is a product of, Apple,4196
+492,Internet Explorer Mobile is a product of,Internet Explorer Mobile, Microsoft,5413,Final Cut Studio is a product of, Apple,4196

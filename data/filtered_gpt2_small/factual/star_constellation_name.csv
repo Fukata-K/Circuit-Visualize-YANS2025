@@ -1,0 +1,28 @@
+Task_ID,clean,subject,object,correct_idx,corrupted,corrupted_object,incorrect_idx
+80,Xi Persei is part of the constellation named,Xi Persei, Perseus,31544,Deneb is part of the constellation named, Cygnus,5934
+115,54 Piscium A is part of the constellation named,54 Piscium A, Pisces,42021,Gliese 90 is part of the constellation named, Cassiopeia,14154
+122,U Sagittarii is part of the constellation named,U Sagittarii, Sagittarius,25605,Gliese 453 is part of the constellation named, Hydra,31613
+136,112 Piscium is part of the constellation named,112 Piscium, Pisces,42021,51 Pegasi is part of the constellation named, Pegasus,48188
+148,9 Sagittarii is part of the constellation named,9 Sagittarii, Sagittarius,25605,EZ Aquarii is part of the constellation named, Aquarius,11446
+164,7 Piscium is part of the constellation named,7 Piscium, Pisces,42021,Alnair is part of the constellation named, Grus,1902
+171,Omega Sagittarii is part of the constellation named,Omega Sagittarii, Sagittarius,25605,GX Andromedae is part of the constellation named, Andromeda,34542
+189,Xi Piscium is part of the constellation named,Xi Piscium, Pisces,42021,59 Virginis is part of the constellation named, Virgo,16310
+191,V* PX Vir is part of the constellation named,V* PX Vir, Virgo,16310,Gamma Librae is part of the constellation named, Libra,7980
+193,20 Piscium is part of the constellation named,20 Piscium, Pisces,42021,GJ 28 is part of the constellation named, Andromeda,34542
+224,Xi Hydrae is part of the constellation named,Xi Hydrae, Hydra,31613,Deneb is part of the constellation named, Cygnus,5934
+225,Zeta Hydrae is part of the constellation named,Zeta Hydrae, Hydra,31613,75 Cancri is part of the constellation named, Cancer,15523
+240,Gamma Hydrae is part of the constellation named,Gamma Hydrae, Hydra,31613,49 Librae is part of the constellation named, Libra,7980
+255,Upsilon1 Hydrae is part of the constellation named,Upsilon1 Hydrae, Hydra,31613,Epsilon Aquarii is part of the constellation named, Aquarius,11446
+265,Nu Hydrae is part of the constellation named,Nu Hydrae, Hydra,31613,Gliese 49 is part of the constellation named, Cassiopeia,14154
+283,91 Aquarii is part of the constellation named,91 Aquarii, Aquarius,11446,Delta Herculis is part of the constellation named, Hercules,32795
+293,11 Aquarii is part of the constellation named,11 Aquarii, Aquarius,11446,87 Herculis is part of the constellation named, Hercules,32795
+309,Beta Aquarii is part of the constellation named,Beta Aquarii, Aquarius,11446,Iota Leonis is part of the constellation named, Leo,19632
+312,94 Aquarii A is part of the constellation named,94 Aquarii A, Aquarius,11446,Pi Andromedae is part of the constellation named, Andromeda,34542
+314,Alpha Aquarii is part of the constellation named,Alpha Aquarii, Aquarius,11446,109 Herculis is part of the constellation named, Hercules,32795
+331,Pi Aquarii is part of the constellation named,Pi Aquarii, Aquarius,11446,Gamma Pegasi is part of the constellation named, Pegasus,48188
+332,HZ Aquarii is part of the constellation named,HZ Aquarii, Aquarius,11446,V377 Geminorum is part of the constellation named, Gemini,35495
+346,1 Aquarii is part of the constellation named,1 Aquarii, Aquarius,11446,Gliese 251 is part of the constellation named, Gemini,35495
+349,108 Aquarii is part of the constellation named,108 Aquarii, Aquarius,11446,37 Geminorum is part of the constellation named, Gemini,35495
+353,96 Aquarii is part of the constellation named,96 Aquarii, Aquarius,11446,V401 Hya is part of the constellation named, Hydra,31613
+358,EZ Aquarii is part of the constellation named,EZ Aquarii, Aquarius,11446,Alpha Cassiopeiae is part of the constellation named, Cassiopeia,14154
+359,FK Aquarii is part of the constellation named,FK Aquarii, Aquarius,11446,Delta Geminorum is part of the constellation named, Gemini,35495
