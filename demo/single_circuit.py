@@ -2,25 +2,22 @@ from pathlib import Path
 
 import streamlit as st
 import streamlit.components.v1 as components
-import torch
 from transformer_lens import HookedTransformer
 
 from demo.figure_utils import generate_circuit_svg, get_svg_path
 from demo.html_utils import create_svg_html_content
 
 
-def display_single_circuit(model: HookedTransformer, device: torch.device) -> None:
+def display_single_circuit(model: HookedTransformer) -> None:
     """
     単独の Circuit の表示を行う関数.
 
     Args:
         model (HookedTransformer): HookedTransformer モデル.
-        device (torch.device): 使用するデバイス (例: "cpu" or "cuda").
 
     Returns:
         None
     """
-
     # 利用可能な Relation name を取得
     data_dir = Path("data/filtered_gpt2_small")
     available_relations = [f.stem for f in data_dir.glob("**/*.csv")]
@@ -28,13 +25,7 @@ def display_single_circuit(model: HookedTransformer, device: torch.device) -> No
 
     # プルダウンメニューで Relation name を選択
     st.sidebar.header("Settings")
-    relation = st.sidebar.selectbox(
-        "Relation:",
-        available_relations,
-        index=available_relations.index("landmark_in_country")
-        if "landmark_in_country" in available_relations
-        else 0,
-    )
+    relation = st.sidebar.selectbox("Relation:", available_relations, index=0)
 
     # エッジ選択方法の設定
     edge_selection_mode = st.sidebar.radio(
@@ -47,7 +38,7 @@ def display_single_circuit(model: HookedTransformer, device: torch.device) -> No
             "Top-N Edges:", min_value=100, max_value=500, value=200, step=100
         )
         score_threshold = None
-    else:  # Performance Threshold
+    else:
         score_threshold = st.sidebar.slider(
             "Performance Threshold:",
             min_value=0.0,
@@ -79,10 +70,9 @@ def display_single_circuit(model: HookedTransformer, device: torch.device) -> No
     if generate_button:
         # SVG ファイルが既に存在するかチェック
         if not svg_path.exists():
-            with st.spinner("Generating circuit..."):
+            with st.spinner("Generating Circuit..."):
                 generate_circuit_svg(
                     model=model,
-                    device=device,
                     relation_name=relation,
                     svg_path=svg_path,
                     topn=topn,

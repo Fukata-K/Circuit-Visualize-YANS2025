@@ -2,7 +2,6 @@ from pathlib import Path
 
 import streamlit as st
 import streamlit.components.v1 as components
-import torch
 from transformer_lens import HookedTransformer
 
 from demo.figure_utils import (
@@ -15,7 +14,6 @@ from demo.html_utils import create_svg_html_content
 
 def display_circuit_multi_set_operation(
     model: HookedTransformer,
-    device: torch.device,
     mode: str = "intersection",
 ) -> None:
     """
@@ -23,13 +21,11 @@ def display_circuit_multi_set_operation(
 
     Args:
         model (HookedTransformer): HookedTransformer モデル.
-        device (torch.device): 使用するデバイス (例: "cpu" or "cuda").
         mode (str): 集合演算の種類. "intersection", "union", "difference", "weighted_difference" から選択.
 
     Returns:
         None
     """
-
     # 利用可能な Relation name を取得
     data_dir = Path("data/filtered_gpt2_small")
     available_relations = [f.stem for f in data_dir.glob("**/*.csv")]
@@ -37,29 +33,16 @@ def display_circuit_multi_set_operation(
 
     # Base Relation を 1つ選択
     st.sidebar.header("Settings")
-    default_base = (
-        "landmark_in_country"
-        if "landmark_in_country" in available_relations
-        else available_relations[0]
-    )
     base_relation = st.sidebar.selectbox(
-        "Base Relation:",
-        options=available_relations,
-        index=available_relations.index(default_base)
-        if default_base in available_relations
-        else 0,
+        "Base Relation:", options=available_relations, index=0
     )
 
     # Other Relations を複数選択
     st.sidebar.subheader("Other Relations")
-    default_others = [
-        r
-        for r in ["landmark_on_continent"]
-        if r in available_relations and r != base_relation
-    ]
+    default_others = available_relations[1]
     other_relations = []
     for rel in available_relations:
-        if rel != base_relation:  # Base Relation 以外のみ表示
+        if rel != base_relation:  # Base Relation は除外
             checked = st.sidebar.checkbox(rel, value=(rel in default_others))
             if checked:
                 other_relations.append(rel)
@@ -97,7 +80,7 @@ def display_circuit_multi_set_operation(
 
     # ヘルパー関数定義 (必要な変数が定義された後)
     def get_individual_svg_path(relation_name):
-        """個別の Circuit SVGパス を取得"""
+        """個別の Circuit SVG パスを取得"""
         return get_svg_path(
             base_relation=relation_name,
             topn=topn if edge_selection_mode == "Top-N Edges" else None,
@@ -130,7 +113,6 @@ def display_circuit_multi_set_operation(
             if not svg_path.exists():
                 generate_circuit_svg(
                     model=model,
-                    device=device,
                     relation_name=base_relation,
                     svg_path=svg_path,
                     topn=topn,
@@ -144,7 +126,6 @@ def display_circuit_multi_set_operation(
                 if not svg_path.exists():
                     generate_circuit_svg(
                         model=model,
-                        device=device,
                         relation_name=other_relation,
                         svg_path=svg_path,
                         topn=topn,
@@ -156,7 +137,6 @@ def display_circuit_multi_set_operation(
             if not svg_path.exists():
                 generate_circuit_multi_set_operation_svg(
                     model=model,
-                    device=device,
                     base_relation_name=base_relation,
                     other_relation_names=other_relations,
                     mode=mode,

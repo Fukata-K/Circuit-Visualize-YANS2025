@@ -2,28 +2,22 @@ from pathlib import Path
 
 import streamlit as st
 import streamlit.components.v1 as components
-import torch
 from transformer_lens import HookedTransformer
 
 from demo.figure_utils import generate_circuit_svg, get_svg_path
 from demo.html_utils import create_svg_html_content
 
 
-def display_multi_circuits(
-    model: HookedTransformer,
-    device: torch.device,
-) -> None:
+def display_multi_circuits(model: HookedTransformer) -> None:
     """
     複数の Circuit を並べて表示する関数.
 
     Args:
         model (HookedTransformer): HookedTransformer モデル.
-        device (torch.device): 使用するデバイス (例: "cpu" or "cuda").
 
     Returns:
         None
     """
-
     # 利用可能な Relation name を取得
     data_dir = Path("data/filtered_gpt2_small")
     available_relations = [f.stem for f in data_dir.glob("**/*.csv")]
@@ -31,13 +25,7 @@ def display_multi_circuits(
 
     # チェックボックスで Relation name を選択 (順序固定)
     st.sidebar.header("Settings")
-    default_checked = set(
-        [
-            r
-            for r in ["landmark_in_country", "landmark_on_continent"]
-            if r in available_relations
-        ]
-    )
+    default_checked = set(available_relations[:2])
     selected_relations = []
     for rel in available_relations:
         checked = st.sidebar.checkbox(rel, value=(rel in default_checked))
@@ -58,7 +46,7 @@ def display_multi_circuits(
             "Top-N Edges:", min_value=100, max_value=500, value=200, step=100
         )
         score_threshold = None
-    else:  # Performance Threshold
+    else:
         score_threshold = st.sidebar.slider(
             "Performance Threshold:",
             min_value=0.0,
@@ -88,7 +76,7 @@ def display_multi_circuits(
 
     # ボタンが押されたときのみ描画処理を実行
     if generate_button:
-        with st.spinner("Generating circuits..."):
+        with st.spinner("Generating Circuits..."):
             for relation in selected_relations:
                 svg_path = get_svg_path(
                     base_relation=relation,
@@ -101,7 +89,6 @@ def display_multi_circuits(
                 if not svg_path.exists():
                     generate_circuit_svg(
                         model=model,
-                        device=device,
                         relation_name=relation,
                         svg_path=svg_path,
                         topn=topn,

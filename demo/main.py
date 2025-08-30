@@ -51,9 +51,10 @@ if st.session_state.page == "home":
         set_page("pairwise_difference")
         st.rerun()
 
-    if st.button("Weighted Difference"):
-        set_page("weighted_difference")
-        st.rerun()
+    # 開発中
+    # if st.button("Weighted Difference"):
+    #     set_page("weighted_difference")
+    #     st.rerun()
 
     if st.button("Multi Union"):
         set_page("multi_union")
@@ -72,60 +73,61 @@ elif st.session_state.page == "single":
     if st.button("Back to Home"):
         set_page("home")
         st.rerun()
-    display_single_circuit(model, device)
+    display_single_circuit(model)
 
 elif st.session_state.page == "multi":
     st.header("Multi Graphs Page")
     if st.button("Back to Home"):
         set_page("home")
         st.rerun()
-    display_multi_circuits(model, device)
+    display_multi_circuits(model)
 
 elif st.session_state.page == "pairwise_union":
     st.header("Pairwise Union Page")
     if st.button("Back to Home"):
         set_page("home")
         st.rerun()
-    display_circuit_pairwise_set_operation(model, device, mode="union")
+    display_circuit_pairwise_set_operation(model, mode="union")
 
 elif st.session_state.page == "pairwise_intersection":
     st.header("Pairwise Intersection Page")
     if st.button("Back to Home"):
         set_page("home")
         st.rerun()
-    display_circuit_pairwise_set_operation(model, device, mode="intersection")
+    display_circuit_pairwise_set_operation(model, mode="intersection")
 
 elif st.session_state.page == "pairwise_difference":
     st.header("Pairwise Difference Page")
     if st.button("Back to Home"):
         set_page("home")
         st.rerun()
-    display_circuit_pairwise_set_operation(model, device, mode="difference")
+    display_circuit_pairwise_set_operation(model, mode="difference")
 
-elif st.session_state.page == "weighted_difference":
-    st.header("Weighted Difference Page")
-    if st.button("Back to Home"):
-        set_page("home")
-        st.rerun()
-    display_circuit_pairwise_set_operation(model, device, mode="weighted_difference")
+# 開発中
+# elif st.session_state.page == "weighted_difference":
+#     st.header("Weighted Difference Page")
+#     if st.button("Back to Home"):
+#         set_page("home")
+#         st.rerun()
+#     display_circuit_pairwise_set_operation(model, mode="weighted_difference")
 
 elif st.session_state.page == "multi_union":
     st.header("Multi Union Page")
     if st.button("Back to Home"):
         set_page("home")
         st.rerun()
-    display_circuit_multi_set_operation(model, device, mode="union")
+    display_circuit_multi_set_operation(model, mode="union")
 
 elif st.session_state.page == "multi_intersection":
     st.header("Multi Intersection Page")
     if st.button("Back to Home"):
         set_page("home")
         st.rerun()
-    display_circuit_multi_set_operation(model, device, mode="intersection")
+    display_circuit_multi_set_operation(model, mode="intersection")
 
 elif st.session_state.page == "multi_difference":
     st.header("Multi Difference Page")
     if st.button("Back to Home"):
         set_page("home")
         st.rerun()
-    display_circuit_multi_set_operation(model, device, mode="difference")
+    display_circuit_multi_set_operation(model, mode="difference")

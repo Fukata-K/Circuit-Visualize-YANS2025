@@ -3,7 +3,6 @@ from pathlib import Path
 from typing import Optional, Union
 
 import pandas as pd
-import torch
 from transformer_lens import HookedTransformer
 
 from circuit.circuit_utils import Circuit
@@ -27,19 +26,19 @@ def apply_score_threshold_to_graph(
     スコアリストから閾値以上になる部分での Circuit オブジェクトを返す.
 
     Args:
-        score_list: (topn_param, actual_edge_count, score) のタプルのリスト
-            - topn_param: apply_topn() に渡すパラメータ値
-            - actual_edge_count: 実際に生成されるグラフのエッジ数
-            - score: そのエッジ数での評価スコア
-        score_threshold: スコアの閾値
-        graph: 処理対象の Circuit オブジェクト
+        score_list: (topn_param, actual_edge_count, score) のタプルのリスト.
+            - topn_param: apply_topn() に渡すパラメータ値.
+            - actual_edge_count: 実際に生成されるグラフのエッジ数.
+            - score: そのエッジ数での評価スコア.
+        score_threshold: スコアの閾値.
+        graph: 処理対象の Circuit オブジェクト.
 
     Returns:
-        Circuit: 閾値以上のスコアを持つエッジが適用された Circuit オブジェクト
+        Circuit: 閾値以上のスコアを持つエッジが適用された Circuit オブジェクト.
 
     Note:
-        - 元の Circuit オブジェクトが変更されるため必要に応じて事前にコピーを作成する必要がある
-        - topn_param と actual_edge_count が異なるのは孤立ノード除去の影響
+        - 元の Circuit オブジェクトが変更されるため必要に応じて事前にコピーを作成する必要がある.
+        - topn_param と actual_edge_count が異なるのは孤立ノード除去の影響.
     """
     if not score_list:
         print("Warning: score_list is empty, returning graph as-is")
@@ -119,7 +118,6 @@ def apply_circuit_threshold(
 
 def generate_circuit_svg(
     model: HookedTransformer,
-    device: torch.device,
     relation_name: str,
     df_base_dir: str = "data/filtered_gpt2_small",
     circuit_base_dir: str = "out/scored_graphs_gpt2_small/pt",
@@ -134,7 +132,6 @@ def generate_circuit_svg(
 
     Args:
         model (HookedTransformer): HookedTransformer モデル.
-        device (torch.device): 使用するデバイス (例: "cpu" or "cuda").
         relation_name (str): Relation 名 (例: "city_in_country").
         df_base_dir (str): データフレームファイルのベースディレクトリ.
         circuit_base_dir (str): Circuit ファイルのベースディレクトリ.
@@ -203,7 +200,6 @@ def generate_circuit_svg(
 
 def generate_circuit_multi_set_operation_svg(
     model: HookedTransformer,
-    device: torch.device,
     base_relation_name: str,
     other_relation_names: list[str],
     mode: str = "intersection",
@@ -220,7 +216,6 @@ def generate_circuit_multi_set_operation_svg(
 
     Args:
         model (HookedTransformer): HookedTransformer モデル.
-        device (torch.device): 使用するデバイス (例: "cpu" or "cuda").
         base_relation_name (str): 基準となる Relation 名 (例: "city_in_country").
         other_relation_names (list[str]): 集合演算対象の Relation 名 (例: ["landmark_in_country"]).
         mode (str): 集合演算の種類.
@@ -317,7 +312,6 @@ def generate_circuit_multi_set_operation_svg(
 
 def generate_circuit_pairwise_set_operation_svg(
     model: HookedTransformer,
-    device: torch.device,
     base_relation_name: str,
     other_relation_name: str,
     mode: str = "intersection",
@@ -330,11 +324,10 @@ def generate_circuit_pairwise_set_operation_svg(
     head_scores_dir: str = "out/head_scores",
 ) -> None:
     """
-    2つの Circuit に対して集合演算 (積集合・和集合・差集合・重み付き差集合) を行い, SVG として保存する関数.
+    2つの Circuit に対して集合演算 (積集合・和集合・差集合・重み付き差集合) を行い SVG として保存する関数.
 
     Args:
         model (HookedTransformer): HookedTransformer モデル.
-        device (torch.device): 使用するデバイス (例: "cpu" or "cuda").
         base_relation_name (str): 基準となる Relation 名 (例: "city_in_country").
         other_relation_name (str): 集合演算対象の Relation 名 (例: "landmark_in_country").
         mode (str): 集合演算の種類.
@@ -432,7 +425,6 @@ def generate_circuit_pairwise_set_operation_svg(
 
 def create_all_circuit_pairwise_set_operation_svg(
     model: HookedTransformer,
-    device: torch.device,
     relation_list: list[str],
     topn: int = 200,
     score_threshold: Optional[float] = None,
@@ -443,7 +435,6 @@ def create_all_circuit_pairwise_set_operation_svg(
 
     Args:
         model (HookedTransformer): HookedTransformer モデル.
-        device (torch.device): 使用するデバイス (例: "cpu" or "cuda").
         relation_list (list[str]): Relation 名のリスト.
         topn (int): Circuit で使用するトップ N 要素数.
         score_threshold (float, optional): スコアの閾値. None の場合は適用しない.
@@ -469,7 +460,6 @@ def create_all_circuit_pairwise_set_operation_svg(
             if not svg_path.exists():
                 generate_circuit_pairwise_set_operation_svg(
                     model=model,
-                    device=device,
                     base_relation_name=base_relation,
                     other_relation_name=other_relation,
                     mode=mode,

@@ -2,7 +2,6 @@ from pathlib import Path
 
 import streamlit as st
 import streamlit.components.v1 as components
-import torch
 from transformer_lens import HookedTransformer
 
 from demo.figure_utils import (
@@ -15,7 +14,6 @@ from demo.html_utils import create_svg_html_content
 
 def display_circuit_pairwise_set_operation(
     model: HookedTransformer,
-    device: torch.device,
     mode: str = "intersection",
 ) -> None:
     """
@@ -23,13 +21,11 @@ def display_circuit_pairwise_set_operation(
 
     Args:
         model (HookedTransformer): HookedTransformer モデル.
-        device (torch.device): 使用するデバイス (例: "cpu" or "cuda").
         mode (str): 集合演算の種類. "intersection", "union", "difference", "weighted_difference" から選択.
 
     Returns:
         None
     """
-
     # 利用可能な Relation name を取得
     data_dir = Path("data/filtered_gpt2_small")
     available_relations = [f.stem for f in data_dir.glob("**/*.csv")]
@@ -37,13 +33,7 @@ def display_circuit_pairwise_set_operation(
 
     # チェックボックスで Relation name を選択 (順序固定)
     st.sidebar.header("Settings")
-    default_checked = set(
-        [
-            r
-            for r in ["landmark_in_country", "landmark_on_continent"]
-            if r in available_relations
-        ]
-    )
+    default_checked = set(available_relations[:2])
     selected_relations = []
     for rel in available_relations:
         checked = st.sidebar.checkbox(rel, value=(rel in default_checked))
@@ -64,7 +54,7 @@ def display_circuit_pairwise_set_operation(
             "Top-N Edges:", min_value=100, max_value=500, value=200, step=100
         )
         score_threshold = None
-    else:  # Performance Threshold
+    else:
         score_threshold = st.sidebar.slider(
             "Performance Threshold:",
             min_value=0.0,
@@ -113,7 +103,7 @@ def display_circuit_pairwise_set_operation(
 
     # ボタンが押されたときのみ描画処理を実行
     if generate_button:
-        with st.spinner("Generating set operation circuits..."):
+        with st.spinner("Generating set operation Circuits..."):
             # まず対角線用の個別 Circuit を生成
             for relation in selected_relations:
                 svg_path = get_individual_svg_path(relation)
@@ -121,7 +111,6 @@ def display_circuit_pairwise_set_operation(
                 if not svg_path.exists():
                     generate_circuit_svg(
                         model=model,
-                        device=device,
                         relation_name=relation,
                         svg_path=svg_path,
                         topn=topn,
@@ -131,7 +120,6 @@ def display_circuit_pairwise_set_operation(
             # 全てのペアについて集合演算の SVG ファイルを生成
             create_all_circuit_pairwise_set_operation_svg(
                 model=model,
-                device=device,
                 relation_list=selected_relations,
                 topn=topn,
                 score_threshold=score_threshold,
@@ -148,8 +136,8 @@ def display_circuit_pairwise_set_operation(
 
     # 全ての SVG ファイルが存在するかチェック
     def check_all_svg_exist():
-        for i, base_relation in enumerate(selected_relations):
-            for j, other_relation in enumerate(selected_relations):
+        for base_relation in selected_relations:
+            for other_relation in selected_relations:
                 svg_path = get_relation_svg_path(base_relation, other_relation)
                 if not svg_path.exists():
                     return False
