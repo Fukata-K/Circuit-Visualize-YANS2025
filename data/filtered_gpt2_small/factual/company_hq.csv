@@ -1,0 +1,42 @@
+Task_ID,clean,subject,object,correct_idx,corrupted,corrupted_object,incorrect_idx
+4,Northeastern University is headquartered in the city of,Northeastern University, Boston,6182,University of South Florida is headquartered in the city of, Tampa,15528
+21,British Railways Board is headquartered in the city of,British Railways Board, London,3576,Adeline Software International is headquartered in the city of, Lyon,35193
+34,Co-operative Commonwealth Federation (Ontario Section) is headquartered in the city of,Co-operative Commonwealth Federation (Ontario Section), Toronto,6586,Nymphenburg Porcelain Manufactory is headquartered in the city of, Munich,22418
+48,BBC Radio is headquartered in the city of,BBC Radio, London,3576,PGi is headquartered in the city of, Atlanta,9371
+66,Center for Jewish–Christian Understanding and Cooperation is headquartered in the city of,Center for Jewish–Christian Understanding and Cooperation, Jerusalem,10843,Lyndon B. Johnson Space Center is headquartered in the city of, Houston,6995
+68,Liquor Control Board of Ontario is headquartered in the city of,Liquor Control Board of Ontario, Toronto,6586,MacMillan Bloedel is headquartered in the city of, Vancouver,10930
+71,Diabetes UK is headquartered in the city of,Diabetes UK, London,3576,Hitachi Consulting is headquartered in the city of, Dallas,8533
+76,Vanderbilt University is headquartered in the city of,Vanderbilt University, Nashville,19250,Uranium One is headquartered in the city of, Toronto,6586
+84,University of Washington is headquartered in the city of,University of Washington, Seattle,7312,Christiania Bank is headquartered in the city of, Oslo,39636
+87,Czechoslovak Television is headquartered in the city of,Czechoslovak Television, Prague,37079,"Sharp, Stewart and Company is headquartered in the city of", Glasgow,23995
+98,Norwegian News Agency is headquartered in the city of,Norwegian News Agency, Oslo,39636,SNK European Democrats is headquartered in the city of, Prague,37079
+135,Canada Life Financial is headquartered in the city of,Canada Life Financial, Toronto,6586,Cummins is headquartered in the city of, Columbus,14939
+168,Danish Film Institute is headquartered in the city of,Danish Film Institute, Copenhagen,31104,International Socialist Tendency is headquartered in the city of, London,3576
+176,Norwegian Industrial Property Office is headquartered in the city of,Norwegian Industrial Property Office, Oslo,39636,Rundell and Bridge is headquartered in the city of, London,3576
+190,Associated British Foods is headquartered in the city of,Associated British Foods, London,3576,Sunrise Party is headquartered in the city of, Tokyo,11790
+207,Canadian Cancer Society is headquartered in the city of,Canadian Cancer Society, Toronto,6586,Electrolux is headquartered in the city of, Stockholm,29679
+252,University of New Mexico is headquartered in the city of,University of New Mexico, Albuquerque,38633,PACE Sports Management is headquartered in the city of, London,3576
+280,Green Party of England and Wales is headquartered in the city of,Green Party of England and Wales, London,3576,Caudill Rowlett Scott is headquartered in the city of, Houston,6995
+322,Lyndon B. Johnson Space Center is headquartered in the city of,Lyndon B. Johnson Space Center, Houston,6995,Slip-n-Slide Records is headquartered in the city of, Miami,8437
+335,University of Western Australia is headquartered in the city of,University of Western Australia, Perth,29913,British Tanker Company is headquartered in the city of, London,3576
+337,Common Purpose UK is headquartered in the city of,Common Purpose UK, London,3576,Clover Studio is headquartered in the city of, Japan,2869
+359,United Nations Economic Commission for Latin America and the Caribbean is headquartered in the city of,United Nations Economic Commission for Latin America and the Caribbean, Santiago,34802,Co-operative Commonwealth Federation (Ontario Section) is headquartered in the city of, Toronto,6586
+379,Mercure de France is headquartered in the city of,Mercure de France, Paris,6342,Sherwin-Williams is headquartered in the city of, Cleveland,10306
+404,Communist Party of Indonesia is headquartered in the city of,Communist Party of Indonesia, Jakarta,49251,Jewel-Osco is headquartered in the city of, Chicago,4842
+420,Lavalin is headquartered in the city of,Lavalin, Montreal,12871,Miller Brewing Company is headquartered in the city of, Milwaukee,16629
+423,Norwegian Public Roads Administration is headquartered in the city of,Norwegian Public Roads Administration, Oslo,39636,Piramal Enterprises Ltd is headquartered in the city of, Mumbai,22917
+437,French Academy of Sciences is headquartered in the city of,French Academy of Sciences, Paris,6342,Green Ronin Publishing is headquartered in the city of, Seattle,7312
+454,Pontifical Catholic University of Chile is headquartered in the city of,Pontifical Catholic University of Chile, Santiago,34802,Brentford F.C. is headquartered in the city of, London,3576
+466,Czech National Bank is headquartered in the city of,Czech National Bank, Prague,37079,Nordic Museum is headquartered in the city of, Stockholm,29679
+473,South Side Elevated Railroad is headquartered in the city of,South Side Elevated Railroad, Chicago,4842,Scottish Handball Association is headquartered in the city of, Scotland,8838
+479,Nippon Cultural Broadcasting is headquartered in the city of,Nippon Cultural Broadcasting, Tokyo,11790,Jewel-Osco is headquartered in the city of, Chicago,4842
+497,Henry Ford Health System is headquartered in the city of,Henry Ford Health System, Detroit,8488,Majorette is headquartered in the city of, Lyon,35193
+510,United Nations High Commissioner for Human Rights is headquartered in the city of,United Nations High Commissioner for Human Rights, Geneva,20552,Pontifical Catholic University of Chile is headquartered in the city of, Santiago,34802
+519,Ontario Hydro is headquartered in the city of,Ontario Hydro, Toronto,6586,College Football News is headquartered in the city of, Chicago,4842
+522,Progressive Conservative Association of Alberta is headquartered in the city of,Progressive Conservative Association of Alberta, Edmonton,21165,AIK Fotboll is headquartered in the city of, Stockholm,29679
+536,L&L Hawaiian Barbecue is headquartered in the city of,L&L Hawaiian Barbecue, Honolulu,43296,People's Democratic Party of Afghanistan is headquartered in the city of, Kabul,34753
+542,Royal Mail Steam Packet Company is headquartered in the city of,Royal Mail Steam Packet Company, London,3576,Lakeshore Technical College is headquartered in the city of, Cleveland,10306
+565,Taito Corporation is headquartered in the city of,Taito Corporation, Tokyo,11790,TSAR Publications is headquartered in the city of, Toronto,6586
+585,Dargaud is headquartered in the city of,Dargaud, Paris,6342,Midvale Steel is headquartered in the city of, Philadelphia,8857
+625,Republican Left of Catalonia is headquartered in the city of,Republican Left of Catalonia, Barcelona,15142,Orion Publishing Group is headquartered in the city of, London,3576
+657,Mitsubishi Corporation is headquartered in the city of,Mitsubishi Corporation, Tokyo,11790,Boulton & Paul is headquartered in the city of, Norwich,43586

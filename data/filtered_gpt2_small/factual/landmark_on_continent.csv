@@ -1,0 +1,103 @@
+Task_ID,clean,subject,object,correct_idx,corrupted,corrupted_object,incorrect_idx
+2,Howard Glacier is on the continent of,Howard Glacier, Antarctica,30185,Niger is on the continent of, Africa,5478
+6,Rutgers Glacier is on the continent of,Rutgers Glacier, Antarctica,30185,Swedish Empire is on the continent of, Europe,2031
+34,Niger is on the continent of,Niger, Africa,5478,Segura is on the continent of, Europe,2031
+52,Namibia is on the continent of,Namibia, Africa,5478,Umber Island is on the continent of, Antarctica,30185
+58,Monte San Giorgio is on the continent of,Monte San Giorgio, Europe,2031,Forster Ice Piedmont is on the continent of, Antarctica,30185
+60,Scheldt is on the continent of,Scheldt, Europe,2031,Spur Point is on the continent of, Antarctica,30185
+97,South Pole Traverse is on the continent of,South Pole Traverse, Antarctica,30185,Udupi district is on the continent of, Asia,7229
+113,United Kingdom of the Netherlands is on the continent of,United Kingdom of the Netherlands, Europe,2031,Rothera Research Station is on the continent of, Antarctica,30185
+123,Emmanuel Glacier is on the continent of,Emmanuel Glacier, Antarctica,30185,United Arab Emirates is on the continent of, Asia,7229
+127,Gambia River is on the continent of,Gambia River, Africa,5478,Chuprene Glacier is on the continent of, Antarctica,30185
+128,Skelton Glacier is on the continent of,Skelton Glacier, Antarctica,30185,Kalahari Desert is on the continent of, Africa,5478
+130,Austria-Hungary is on the continent of,Austria-Hungary, Europe,2031,Dufek Massif is on the continent of, Antarctica,30185
+140,Antarctic Plateau is on the continent of,Antarctic Plateau, Antarctica,30185,Gornergrat is on the continent of, Europe,2031
+141,Bertram Glacier is on the continent of,Bertram Glacier, Antarctica,30185,Gambia River is on the continent of, Africa,5478
+150,Gordon Glacier is on the continent of,Gordon Glacier, Antarctica,30185,Elbe is on the continent of, Europe,2031
+153,English Channel is on the continent of,English Channel, Europe,2031,Marsh Glacier is on the continent of, Antarctica,30185
+157,Thomas Glacier is on the continent of,Thomas Glacier, Antarctica,30185,Snowdon is on the continent of, Europe,2031
+159,Liberia is on the continent of,Liberia, Africa,5478,Storm Peak is on the continent of, Antarctica,30185
+163,Guinea-Bissau is on the continent of,Guinea-Bissau, Africa,5478,Air New Zealand Flight 901 is on the continent of, Antarctica,30185
+166,David Glacier is on the continent of,David Glacier, Antarctica,30185,Wallonia is on the continent of, Europe,2031
+175,Northwind Glacier is on the continent of,Northwind Glacier, Antarctica,30185,Nigeria is on the continent of, Africa,5478
+187,Germany is on the continent of,Germany, Europe,2031,Egypt is on the continent of, Africa,5478
+189,Zechstein is on the continent of,Zechstein, Europe,2031,Signy Island is on the continent of, Antarctica,30185
+196,Eswatini is on the continent of,Eswatini, Africa,5478,Violante Inlet is on the continent of, Antarctica,30185
+213,Metropolitan France is on the continent of,Metropolitan France, Europe,2031,Varna Peninsula is on the continent of, Antarctica,30185
+217,Newcomer Glacier is on the continent of,Newcomer Glacier, Antarctica,30185,Banaskantha district is on the continent of, Asia,7229
+229,Hinkley Glacier is on the continent of,Hinkley Glacier, Antarctica,30185,Eswatini is on the continent of, Africa,5478
+236,Mozambique is on the continent of,Mozambique, Africa,5478,Rawson Plateau is on the continent of, Antarctica,30185
+271,Scotland is on the continent of,Scotland, Europe,2031,Turkey is on the continent of, Asia,7229
+278,George VI Ice Shelf is on the continent of,George VI Ice Shelf, Antarctica,30185,Grossglockner is on the continent of, Europe,2031
+285,Reeves Glacier is on the continent of,Reeves Glacier, Antarctica,30185,Kaveri River is on the continent of, Asia,7229
+288,Mariner Glacier is on the continent of,Mariner Glacier, Antarctica,30185,Niger River is on the continent of, Africa,5478
+305,Karonga is on the continent of,Karonga, Africa,5478,The Hague is on the continent of, Europe,2031
+306,Volga Bulgaria is on the continent of,Volga Bulgaria, Europe,2031,Sykes Glacier is on the continent of, Antarctica,30185
+320,Hansen Glacier is on the continent of,Hansen Glacier, Antarctica,30185,Burundi is on the continent of, Africa,5478
+332,Chad Basin is on the continent of,Chad Basin, Africa,5478,Manipur is on the continent of, Asia,7229
+345,United Kingdom of Great Britain and Ireland is on the continent of,United Kingdom of Great Britain and Ireland, Europe,2031,Mendelssohn Inlet is on the continent of, Antarctica,30185
+349,Rhine is on the continent of,Rhine, Europe,2031,Martin Hills is on the continent of, Antarctica,30185
+358,Discovery Expedition is on the continent of,Discovery Expedition, Antarctica,30185,Malaysia is on the continent of, Asia,7229
+372,Griffith Glacier is on the continent of,Griffith Glacier, Antarctica,30185,Eswatini is on the continent of, Africa,5478
+373,Juan Carlos I Antarctic Base is on the continent of,Juan Carlos I Antarctic Base, Antarctica,30185,Guinea-Bissau is on the continent of, Africa,5478
+378,Loire is on the continent of,Loire, Europe,2031,Gordon Glacier is on the continent of, Antarctica,30185
+382,Recovery Glacier is on the continent of,Recovery Glacier, Antarctica,30185,Bulgaria is on the continent of, Europe,2031
+383,The Hague is on the continent of,The Hague, Europe,2031,David Island is on the continent of, Antarctica,30185
+420,Czechoslovakia is on the continent of,Czechoslovakia, Europe,2031,Cape Mousse is on the continent of, Antarctica,30185
+428,Somalia is on the continent of,Somalia, Africa,5478,Cartographers Range is on the continent of, Antarctica,30185
+443,Schreckhorn is on the continent of,Schreckhorn, Europe,2031,Jorum Glacier is on the continent of, Antarctica,30185
+449,Antarctic ice sheet is on the continent of,Antarctic ice sheet, Antarctica,30185,Aconcagua is on the continent of, Americas,25733
+465,Debenham Glacier is on the continent of,Debenham Glacier, Antarctica,30185,Chambal River is on the continent of, Asia,7229
+507,Publications Ice Shelf is on the continent of,Publications Ice Shelf, Antarctica,30185,Primorsky Krai is on the continent of, Asia,7229
+523,Johnson Glacier is on the continent of,Johnson Glacier, Antarctica,30185,San Marino is on the continent of, Europe,2031
+567,Marsh Glacier is on the continent of,Marsh Glacier, Antarctica,30185,Athens is on the continent of, Europe,2031
+568,Transantarctic Mountains is on the continent of,Transantarctic Mountains, Antarctica,30185,KU Leuven is on the continent of, Europe,2031
+577,Eritrea is on the continent of,Eritrea, Africa,5478,Craiova is on the continent of, Europe,2031
+590,North Macedonia is on the continent of,North Macedonia, Europe,2031,South Korea is on the continent of, Asia,7229
+593,Yoruba religion is on the continent of,Yoruba religion, Africa,5478,Northern Foothills is on the continent of, Antarctica,30185
+594,Mars Glacier is on the continent of,Mars Glacier, Antarctica,30185,Angola is on the continent of, Africa,5478
+623,Cameroon is on the continent of,Cameroon, Africa,5478,Robertson Bay is on the continent of, Antarctica,30185
+630,Nigeria is on the continent of,Nigeria, Africa,5478,Tbilisi is on the continent of, Europe,2031
+631,Mount Cameroon is on the continent of,Mount Cameroon, Africa,5478,David Island is on the continent of, Antarctica,30185
+635,Congo basin is on the continent of,Congo basin, Africa,5478,Aprilov Point is on the continent of, Antarctica,30185
+638,Djibouti is on the continent of,Djibouti, Africa,5478,Watson Escarpment is on the continent of, Antarctica,30185
+664,Orange Free State is on the continent of,Orange Free State, Africa,5478,Mariner Glacier is on the continent of, Antarctica,30185
+666,Keltie Glacier is on the continent of,Keltie Glacier, Antarctica,30185,Daugava River is on the continent of, Europe,2031
+667,Comoros is on the continent of,Comoros, Africa,5478,Crystal Sound is on the continent of, Antarctica,30185
+668,Equatorial Guinea is on the continent of,Equatorial Guinea, Africa,5478,Levski Ridge is on the continent of, Antarctica,30185
+683,Australian Antarctic Territory is on the continent of,Australian Antarctic Territory, Antarctica,30185,Viking Age is on the continent of, Europe,2031
+689,Bern is on the continent of,Bern, Europe,2031,Turkey is on the continent of, Asia,7229
+690,KU Leuven is on the continent of,KU Leuven, Europe,2031,Hektoria Glacier is on the continent of, Antarctica,30185
+703,Sobat River is on the continent of,Sobat River, Africa,5478,Bowyer Butte is on the continent of, Antarctica,30185
+712,Drummond Glacier is on the continent of,Drummond Glacier, Antarctica,30185,Kaveri River is on the continent of, Asia,7229
+716,Prussian Partition is on the continent of,Prussian Partition, Europe,2031,Ninnis Glacier is on the continent of, Antarctica,30185
+718,Marinid dynasty is on the continent of,Marinid dynasty, Africa,5478,Panega Glacier is on the continent of, Antarctica,30185
+728,Lesotho is on the continent of,Lesotho, Africa,5478,Hutton Mountains is on the continent of, Antarctica,30185
+732,Burundi is on the continent of,Burundi, Africa,5478,Barwick Valley is on the continent of, Antarctica,30185
+737,Soviet Union is on the continent of,Soviet Union, Europe,2031,Mali is on the continent of, Africa,5478
+741,Mali is on the continent of,Mali, Africa,5478,Mount McCoy is on the continent of, Antarctica,30185
+742,Rutford Ice Stream is on the continent of,Rutford Ice Stream, Antarctica,30185,Shahdol district is on the continent of, Asia,7229
+743,Shipley Glacier is on the continent of,Shipley Glacier, Antarctica,30185,Malaysia is on the continent of, Asia,7229
+745,Benson Glacier is on the continent of,Benson Glacier, Antarctica,30185,Orange Free State is on the continent of, Africa,5478
+747,Niger River is on the continent of,Niger River, Africa,5478,Siple Dome is on the continent of, Antarctica,30185
+750,Rothera Research Station is on the continent of,Rothera Research Station, Antarctica,30185,United Kingdom of the Netherlands is on the continent of, Europe,2031
+754,Victoria Upper Glacier is on the continent of,Victoria Upper Glacier, Antarctica,30185,Craiova is on the continent of, Europe,2031
+758,Austria is on the continent of,Austria, Europe,2031,West Indies is on the continent of, Americas,25733
+762,Saturn Glacier is on the continent of,Saturn Glacier, Antarctica,30185,Nigeria is on the continent of, Africa,5478
+763,Aviator Glacier is on the continent of,Aviator Glacier, Antarctica,30185,Tigris is on the continent of, Asia,7229
+765,Support Force Glacier is on the continent of,Support Force Glacier, Antarctica,30185,Eastern Bloc is on the continent of, Europe,2031
+771,Congo Free State is on the continent of,Congo Free State, Africa,5478,Cape Colbeck is on the continent of, Antarctica,30185
+776,Antarctic Plate is on the continent of,Antarctic Plate, Antarctica,30185,Prussian Partition is on the continent of, Europe,2031
+800,Scylla Glacier is on the continent of,Scylla Glacier, Antarctica,30185,Entente Florale is on the continent of, Europe,2031
+802,Southern Netherlands is on the continent of,Southern Netherlands, Europe,2031,Karonga is on the continent of, Africa,5478
+827,Splettstoesser Glacier is on the continent of,Splettstoesser Glacier, Antarctica,30185,Tiruvannamalai district is on the continent of, Asia,7229
+838,Egypt is on the continent of,Egypt, Africa,5478,England is on the continent of, Europe,2031
+852,Indian Antarctic Program is on the continent of,Indian Antarctic Program, Antarctica,30185,Eritrea is on the continent of, Africa,5478
+859,Slovakia is on the continent of,Slovakia, Europe,2031,Renier Point is on the continent of, Antarctica,30185
+863,French Southern and Antarctic Lands is on the continent of,French Southern and Antarctic Lands, Antarctica,30185,Abbasid Caliphate is on the continent of, Africa,5478
+881,North Holland is on the continent of,North Holland, Europe,2031,Miller Range is on the continent of, Antarctica,30185
+895,Angola is on the continent of,Angola, Africa,5478,Taylor Valley is on the continent of, Antarctica,30185
+907,Russell East Glacier is on the continent of,Russell East Glacier, Antarctica,30185,Tamil Nadu is on the continent of, Asia,7229
+922,Denmark is on the continent of,Denmark, Europe,2031,Mars Glacier is on the continent of, Antarctica,30185
+929,Antarctic Treaty System is on the continent of,Antarctic Treaty System, Antarctica,30185,Kingdom of Saxony is on the continent of, Europe,2031
+933,Seychelles is on the continent of,Seychelles, Africa,5478,Pomorie Point is on the continent of, Antarctica,30185

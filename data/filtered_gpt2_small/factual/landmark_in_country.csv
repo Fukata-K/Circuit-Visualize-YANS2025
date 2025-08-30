@@ -1,0 +1,75 @@
+Task_ID,clean,subject,object,correct_idx,corrupted,corrupted_object,incorrect_idx
+3,Wanne-Eickel Central Station is in the country of,Wanne-Eickel Central Station, Germany,4486,Bourg-la-Reine is in the country of, France,4881
+10,Piper Verlag is in the country of,Piper Verlag, Germany,4486,Banesh Rural District is in the country of, Iran,4068
+14,Tehri Garhwal district is in the country of,Tehri Garhwal district, India,3794,Cayeux-sur-Mer is in the country of, France,4881
+31,Kyoto University is in the country of,Kyoto University, Japan,2869,Ruhla is in the country of, Germany,4486
+33,Medaram is in the country of,Medaram, India,3794,Selbu is in the country of, Norway,15238
+40,Vijayawada Junction railway station is in the country of,Vijayawada Junction railway station, India,3794,Bourg-la-Reine is in the country of, France,4881
+60,Yokohama International School is in the country of,Yokohama International School, Japan,2869,Porto Azzurro is in the country of, Italy,8031
+97,"Inami, Toyama is in the country of","Inami, Toyama", Japan,2869,Veysian Rural District is in the country of, Iran,4068
+123,Subarnapur district is in the country of,Subarnapur district, India,3794,Khmilnyk is in the country of, Ukraine,7049
+146,Le Puy Foot 43 Auvergne is in the country of,Le Puy Foot 43 Auvergne, France,4881,Colegio Nacional de Buenos Aires is in the country of, Argentina,16519
+147,"Medical College and Hospital, Kolkata is in the country of","Medical College and Hospital, Kolkata", India,3794,Gmina Konarzyny is in the country of, Poland,12873
+166,Saint-Jacques-de-la-Lande is in the country of,Saint-Jacques-de-la-Lande, France,4881,Bukit Panjang Single Member Constituency is in the country of, Singapore,12551
+168,Hyderabad Deccan railway station is in the country of,Hyderabad Deccan railway station, India,3794,Gmina Stara Kornica is in the country of, Poland,12873
+169,Higashikagawa is in the country of,Higashikagawa, Japan,2869,Augusta Raurica is in the country of, Switzerland,14679
+180,JVC Kenwood Victor Entertainment is in the country of,JVC Kenwood Victor Entertainment, Japan,2869,Winlaton Youth Training Centre is in the country of, Australia,4505
+188,Valhalla Swimming Hall is in the country of,Valhalla Swimming Hall, Sweden,10710,Monarcas Morelia is in the country of, Mexico,5828
+194,Piove di Sacco is in the country of,Piove di Sacco, Italy,8031,Eredivisie is in the country of, Netherlands,12671
+197,Bahujan Vikas Aaghadi is in the country of,Bahujan Vikas Aaghadi, India,3794,Khorramdarreh Rural District is in the country of, Iran,4068
+221,Cayeux-sur-Mer is in the country of,Cayeux-sur-Mer, France,4881,Gmina Kalinowo is in the country of, Poland,12873
+230,Kottarakkara is in the country of,Kottarakkara, India,3794,Piedecuesta is in the country of, Colombia,21291
+232,Kyōto Prefecture is in the country of,Kyōto Prefecture, Japan,2869,Kibungo Province is in the country of, Rwanda,38507
+233,Helsinki City Hall is in the country of,Helsinki City Hall, Finland,17837,Aucanquilcha is in the country of, Chile,17456
+247,Gavrilovo-Posadsky District is in the country of,Gavrilovo-Posadsky District, Russia,3284,San Canzian d'Isonzo is in the country of, Italy,8031
+250,Roman Catholic Archdiocese of Ljubljana is in the country of,Roman Catholic Archdiocese of Ljubljana, Slovenia,37562,"All-Ukrainian Union ""Svoboda"" is in the country of", Ukraine,7049
+254,Roman Catholic Archdiocese of Lucca is in the country of,Roman Catholic Archdiocese of Lucca, Italy,8031,Enghien-les-Bains is in the country of, France,4881
+297,Colegio Nacional de Buenos Aires is in the country of,Colegio Nacional de Buenos Aires, Argentina,16519,Swedish Orphan Biovitrum is in the country of, Sweden,10710
+315,Shichikashuku is in the country of,Shichikashuku, Japan,2869,Bispebjerg is in the country of, Denmark,16490
+317,Bourg-la-Reine is in the country of,Bourg-la-Reine, France,4881,Hohenlohe-Langenburg is in the country of, Germany,4486
+318,Nagoya University is in the country of,Nagoya University, Japan,2869,Bungsberg is in the country of, Germany,4486
+324,Battle of Montereau is in the country of,Battle of Montereau, France,4881,Taunsa Barrage is in the country of, Pakistan,7648
+348,Nishi-Matsuura District is in the country of,Nishi-Matsuura District, Japan,2869,Nea Zichni Municipality is in the country of, Greece,10315
+358,Tarnobrzeg Voivodeship is in the country of,Tarnobrzeg Voivodeship, Poland,12873,Isla Grande de Tierra del Fuego is in the country of, Argentina,16519
+362,Kitakami Station is in the country of,Kitakami Station, Japan,2869,N-340 road is in the country of, Spain,8602
+372,Hitachinaka is in the country of,Hitachinaka, Japan,2869,Tovarnik is in the country of, Croatia,28975
+378,Bolpur is in the country of,Bolpur, India,3794,Trento is in the country of, Italy,8031
+394,Istanbul Airport is in the country of,Istanbul Airport, Turkey,7137,Hida Mountains is in the country of, Japan,2869
+426,Toulouges is in the country of,Toulouges, France,4881,Campeche Bank is in the country of, Mexico,5828
+442,Teatro Comunale Florence is in the country of,Teatro Comunale Florence, Italy,8031,Electoral district of Wantirna is in the country of, Australia,4505
+450,Danish Sign Language is in the country of,Danish Sign Language, Denmark,16490,Perpignan is in the country of, France,4881
+455,Eriksbergs Mekaniska Verkstad is in the country of,Eriksbergs Mekaniska Verkstad, Sweden,10710,Bukit Panjang Single Member Constituency is in the country of, Singapore,12551
+462,Manyakheta is in the country of,Manyakheta, India,3794,Perpignan is in the country of, France,4881
+463,Tsubaki Grand Shrine is in the country of,Tsubaki Grand Shrine, Japan,2869,Gobind Sagar is in the country of, India,3794
+490,Sonitpur district is in the country of,Sonitpur district, India,3794,Melaka TMFC is in the country of, Malaysia,15336
+507,Swedish Orphan Biovitrum is in the country of,Swedish Orphan Biovitrum, Sweden,10710,Santo Stefano d'Aveto is in the country of, Italy,8031
+509,Zelenchukskaya is in the country of,Zelenchukskaya, Russia,3284,Band-e Kaisar is in the country of, Iran,4068
+510,"Tsuno District, Yamaguchi is in the country of","Tsuno District, Yamaguchi", Japan,2869,AA Drink-leontien.nl is in the country of, Netherlands,12671
+519,Addanki mandal is in the country of,Addanki mandal, India,3794,Tillya Tepe is in the country of, Afghanistan,8037
+531,Thiruvattar is in the country of,Thiruvattar, India,3794,Garibaldi Ranges is in the country of, Canada,3340
+551,Singarapettai is in the country of,Singarapettai, India,3794,Kanchanaburi is in the country of, Thailand,16952
+562,Borghetto di Vara is in the country of,Borghetto di Vara, Italy,8031,"Croom, County Limerick is in the country of", Ireland,7517
+589,Neighbourhoods in Kolkata is in the country of,Neighbourhoods in Kolkata, India,3794,Valea lui Mihai is in the country of, Romania,23356
+596,Autonomous District Lok Sabha constituency is in the country of,Autonomous District Lok Sabha constituency, India,3794,Niederweningen is in the country of, Switzerland,14679
+605,Staatliche Antikensammlungen is in the country of,Staatliche Antikensammlungen, Germany,4486,"All-Ukrainian Union ""Svoboda"" is in the country of", Ukraine,7049
+610,2010 Belgian federal election is in the country of,2010 Belgian federal election, Belgium,15664,Ponoy River is in the country of, Russia,3284
+615,"Croom, County Limerick is in the country of","Croom, County Limerick", Ireland,7517,Niederweningen is in the country of, Switzerland,14679
+633,Periyar University is in the country of,Periyar University, India,3794,Toulouges is in the country of, France,4881
+642,Panagarh is in the country of,Panagarh, India,3794,Public Broadcasting Services is in the country of, Malta,35206
+643,Gobind Sagar is in the country of,Gobind Sagar, India,3794,Zwiefalten is in the country of, Germany,4486
+653,Gurudwara Bangla Sahib is in the country of,Gurudwara Bangla Sahib, India,3794,Ayn Halaqim Subdistrict is in the country of, Syria,4392
+678,"College of Engineering, Pune is in the country of","College of Engineering, Pune", India,3794,Lodhran Tehsil is in the country of, Pakistan,7648
+696,Mannheim City Airport is in the country of,Mannheim City Airport, Germany,4486,Kamikita District is in the country of, Japan,2869
+701,"Fukuno, Toyama is in the country of","Fukuno, Toyama", Japan,2869,La Mauricie National Park is in the country of, Canada,3340
+702,Isfahan International Airport is in the country of,Isfahan International Airport, Iran,4068,Ust-Katav is in the country of, Russia,3284
+718,Ichchapuram is in the country of,Ichchapuram, India,3794,Sarpsborg 08 FF is in the country of, Norway,15238
+727,Ghatanji is in the country of,Ghatanji, India,3794,Fort Madalena is in the country of, Malta,35206
+734,Fryderyk Chopin University of Music is in the country of,Fryderyk Chopin University of Music, Poland,12873,Gurudwara Bangla Sahib is in the country of, India,3794
+745,Bad Wildungen is in the country of,Bad Wildungen, Germany,4486,Giurgiu County is in the country of, Romania,23356
+746,Minamiakita District is in the country of,Minamiakita District, Japan,2869,Zwiefalten is in the country of, Germany,4486
+759,Preet Vihar is in the country of,Preet Vihar, India,3794,Cairo American College is in the country of, Egypt,6365
+777,"Halton County, Ontario is in the country of","Halton County, Ontario", Canada,3340,Trans-Sahara Highway is in the country of, Nigeria,19398
+796,Grand Mosque of Paris is in the country of,Grand Mosque of Paris, France,4881,Pakpattan is in the country of, Pakistan,7648
+802,Yamato Museum is in the country of,Yamato Museum, Japan,2869,Anak Bukit is in the country of, Malaysia,15336
+814,University of Bern is in the country of,University of Bern, Switzerland,14679,Harnaut is in the country of, India,3794
+826,Tatsuno is in the country of,Tatsuno, Japan,2869,Ledaal is in the country of, Norway,15238
