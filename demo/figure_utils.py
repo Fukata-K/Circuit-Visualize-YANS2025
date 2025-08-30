@@ -10,7 +10,6 @@ from circuit.circuit_utils import Circuit
 from circuit.visualize_circuit import save_circuit_image
 from paths import (
     get_attention_image_path,
-    get_cache_path,
     get_circuit_score_path,
     get_dataframe_path,
     get_scored_graph_path,
@@ -122,7 +121,6 @@ def generate_circuit_svg(
     model: HookedTransformer,
     device: torch.device,
     relation_name: str,
-    cache_base_dir: str = "out/cache",
     df_base_dir: str = "data/filtered_gpt2_small",
     circuit_base_dir: str = "out/scored_graphs_gpt2_small/pt",
     svg_path: Union[str, Path] = "demo/figures/circuit.svg",
@@ -138,7 +136,6 @@ def generate_circuit_svg(
         model (HookedTransformer): HookedTransformer モデル.
         device (torch.device): 使用するデバイス (例: "cpu" or "cuda").
         relation_name (str): Relation 名 (例: "city_in_country").
-        cache_base_dir (str): キャッシュファイルのベースディレクトリ.
         df_base_dir (str): データフレームファイルのベースディレクトリ.
         circuit_base_dir (str): Circuit ファイルのベースディレクトリ.
         svg_path (str): 出力 SVG ファイルのパス.
@@ -150,11 +147,6 @@ def generate_circuit_svg(
     Returns:
         None
     """
-
-    # キャッシュの読み込み (要改善: cache が分割されている場合の対応)
-    cache_path = get_cache_path(relation_name, base_dir=cache_base_dir)
-    cache = torch.load(cache_path, map_location=device, weights_only=False)
-
     # DataFrame の読み込み
     df_path = get_dataframe_path(relation_name, base_dir=df_base_dir)
     df = pd.read_csv(df_path)
@@ -186,7 +178,7 @@ def generate_circuit_svg(
     # Circuit の SVG を生成して保存
     save_circuit_image(
         model=model,
-        cache=cache,
+        cache=None,
         df=df,
         circuit=circuit,
         output_path=svg_path,
@@ -215,7 +207,6 @@ def generate_circuit_multi_set_operation_svg(
     base_relation_name: str,
     other_relation_names: list[str],
     mode: str = "intersection",
-    cache_base_dir: str = "out/cache",
     df_base_dir: str = "data/filtered_gpt2_small",
     circuit_base_dir: str = "out/scored_graphs_gpt2_small/pt",
     svg_path: Union[str, Path] = "demo/figures/circuit.svg",
@@ -236,7 +227,6 @@ def generate_circuit_multi_set_operation_svg(
             - "intersection" (積集合)
             - "union" (和集合)
             - "difference" (差集合)
-        cache_base_dir (str): キャッシュファイルのベースディレクトリ.
         df_base_dir (str): データフレームファイルのベースディレクトリ.
         circuit_base_dir (str): Circuit ファイルのベースディレクトリ.
         svg_path (str): 出力 SVG ファイルのパス.
@@ -248,11 +238,6 @@ def generate_circuit_multi_set_operation_svg(
     Returns:
         None
     """
-
-    # キャッシュの読み込み (要改善: cache が分割されている場合の対応)
-    cache_path = get_cache_path(base_relation_name, base_dir=cache_base_dir)
-    cache = torch.load(cache_path, map_location=device, weights_only=False)
-
     # DataFrame の読み込み
     df_path = get_dataframe_path(base_relation_name, base_dir=df_base_dir)
     df = pd.read_csv(df_path)
@@ -307,7 +292,7 @@ def generate_circuit_multi_set_operation_svg(
         base_circuit.reset()
     save_circuit_image(
         model=model,
-        cache=cache,
+        cache=None,
         df=df,
         circuit=base_circuit,
         output_path=svg_path,
@@ -336,7 +321,6 @@ def generate_circuit_pairwise_set_operation_svg(
     base_relation_name: str,
     other_relation_name: str,
     mode: str = "intersection",
-    cache_base_dir: str = "out/cache",
     df_base_dir: str = "data/filtered_gpt2_small",
     circuit_base_dir: str = "out/scored_graphs_gpt2_small/pt",
     svg_path: Union[str, Path] = "demo/figures/circuit.svg",
@@ -358,7 +342,6 @@ def generate_circuit_pairwise_set_operation_svg(
             - "union" (和集合)
             - "difference" (差集合)
             - "weighted_difference" (重み付き差集合)
-        cache_base_dir (str): キャッシュファイルのベースディレクトリ.
         df_base_dir (str): データフレームファイルのベースディレクトリ.
         circuit_base_dir (str): Circuit ファイルのベースディレクトリ.
         svg_path (str): 出力 SVG ファイルのパス.
@@ -370,11 +353,6 @@ def generate_circuit_pairwise_set_operation_svg(
     Returns:
         None
     """
-
-    # キャッシュの読み込み (要改善: cache が分割されている場合の対応)
-    cache_path = get_cache_path(base_relation_name, base_dir=cache_base_dir)
-    cache = torch.load(cache_path, map_location=device, weights_only=False)
-
     # DataFrame の読み込み
     df_path = get_dataframe_path(base_relation_name, base_dir=df_base_dir)
     df = pd.read_csv(df_path)
@@ -429,7 +407,7 @@ def generate_circuit_pairwise_set_operation_svg(
         base_circuit.reset()
     save_circuit_image(
         model=model,
-        cache=cache,
+        cache=None,
         df=df,
         circuit=base_circuit,
         output_path=svg_path,
