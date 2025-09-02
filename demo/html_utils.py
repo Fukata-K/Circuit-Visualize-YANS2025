@@ -1,9 +1,10 @@
 from pathlib import Path
-from typing import Union
+
+from color import BGCOLOR
 
 
 def create_svg_html_content(
-    svg_path: Union[str, Path],
+    svg_path: str | Path,
     max_height: int = 800,
 ) -> str:
     """
@@ -25,9 +26,9 @@ def create_svg_html_content(
     <div style="
         width: 100%;
         height: {max_height}px;
-        border: 1px solid #000000;
+        border: 1px solid {BGCOLOR.to_hex()};
         border-radius: 4px;
-        background-color: #000000;
+        background-color: {BGCOLOR.to_hex()};
         padding: 10px;
         box-sizing: border-box;
         display: flex;

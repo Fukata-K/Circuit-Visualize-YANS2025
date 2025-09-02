@@ -5,6 +5,7 @@ from typing import Optional, Union
 import pandas as pd
 from transformer_lens import HookedTransformer
 
+from color import BGCOLOR, BORDER, EDGE, FONT, GRAY, GREEN, NODE, RED, WHITE, Color
 from dataset.dataset_utils import EAPDataset
 from eap.attribute import attribute
 from eap.graph import Graph
@@ -64,8 +65,8 @@ class Circuit(Graph):
 
         Args:
             filename (str): 画像ファイルの保存先パス
-            border_colors (dict[str, str], optional): ノード名 -> ボーダーカラーコード ("#RRGGBB") の辞書. 未指定時は黒.
-            fillcolors (dict[str, str], optional): ノード名 -> 色コード ("#RRGGBB") の辞書. 未指定時はパステル色で自動生成.
+            border_colors (dict[str, str], optional): ノード名 -> ボーダーカラーコード ("#RRGGBB") の辞書.
+            fillcolors (dict[str, str], optional): ノード名 -> 色コード ("#RRGGBB") の辞書.
             alphas (dict[str, str], optional): ノード名 -> アルファ値 ("80"など) の辞書. 未指定時は全て"FF" (不透明).
             size_scales (dict[str, float], optional): ノード名 -> 大きさ倍率の辞書. 未指定時は全て1.0.
             shapes (dict[str, str], optional): ノード名 -> 形状 ("box" など) の辞書. 未指定時は全て "box".
@@ -85,7 +86,7 @@ class Circuit(Graph):
         g = pgv.AGraph(
             directed=True,
             layout="neato",
-            bgcolor="#000000",
+            bgcolor=BGCOLOR.to_hex(),
             overlap="true",
             splines="true",
         )
@@ -122,19 +123,19 @@ class Circuit(Graph):
     ) -> dict:
         """スタイル設定のデフォルト値を初期化する"""
         if border_colors is None:
-            border_colors = {node.name: "#000000" for node in self.nodes.values()}
+            border_colors = {node.name: BORDER.to_hex() for node in self.nodes.values()}
 
         if fillcolors is None:
             color_map = {
-                "a": "#FF7777",  # light red for attention nodes
-                "m": "#CCFFCC",  # light green for MLP nodes
-                "l": "#FFD700",  # gold for logits nodes
+                "a": RED.to_hex(),
+                "m": NODE.to_hex(),
+                "l": GRAY.to_hex(),
             }
             fillcolors = {
                 node.name: (
-                    color_map.get(node.name[0], "#808080")
+                    color_map.get(node.name[0], NODE.to_hex())
                     if node.in_graph
-                    else "#FFFFFF"
+                    else NODE.to_hex()
                 )
                 for node in self.nodes.values()
             }
@@ -211,8 +212,8 @@ class Circuit(Graph):
                 continue
 
             alpha = style_config["alphas"].get(node.name, "FF")
-            border_color = style_config["border_colors"].get(node.name, "#000000")
-            fillcolor = style_config["fillcolors"].get(node.name, "#FFFFFF")
+            border_color = style_config["border_colors"].get(node.name, BORDER.to_hex())
+            fillcolor = style_config["fillcolors"].get(node.name, NODE.to_hex())
             scale = style_config["size_scales"].get(node.name, 1.0)
             shape = style_config["shapes"].get(node.name, "box")
             style = "filled, rounded" if shape == "box" else "filled"
@@ -224,7 +225,7 @@ class Circuit(Graph):
                 node.name,
                 color=border_color + alpha,
                 fillcolor=fillcolor + alpha,
-                fontcolor="#000000" + alpha,
+                fontcolor=FONT.to_hex() + alpha,
                 fontname="Helvetica",
                 fontsize=base_fontsize * scale,
                 shape=shape,
@@ -241,15 +242,15 @@ class Circuit(Graph):
         """
         エッジの色を取得するヘルパー関数.
         各エッジに割り当てられたスコアに基づいてエッジの色を決定する.
-        スコアが最大値に近いほど緑色で, 遠いほど白色で表示される.
+        スコアが最大値に近いほど緑色で, 遠いほどデフォルト色で表示される.
         """
         if edge.score is not None:
             score = min(abs(float(edge.score)) / max_score, 1)
-            r = 255 * (1 - score)
-            g = 255
-            b = 255 * (1 - score)
-            return f"#{int(r):02X}{int(g):02X}{int(b):02X}"
-        return "#FFFFFF"
+            R = EDGE.r * (1 - score) + GREEN.r * score
+            G = EDGE.g * (1 - score) + GREEN.g * score
+            B = EDGE.b * (1 - score) + GREEN.b * score
+            return Color(R, G, B).to_hex()
+        return EDGE.to_hex()
 
     def _add_edges_to_graph(self, g, edge_width):
         """グラフにエッジを追加する"""
@@ -288,17 +289,17 @@ class Circuit(Graph):
             x, y = self._get_node_position(corner_name, base_width, base_height)
             if corner_name == "top_right":
                 node_name = f"E: {self.in_graph.count_nonzero().item()}"
-                fontcolor = "#FFFFFF"  # トップ右にエッジ数を表示
+                fontcolor = WHITE.to_hex() + "00"  # トップ右にエッジ数を表示 (解除中)
             elif corner_name == "top_left":
                 node_name = f"N: {self.nodes_in_graph.count_nonzero().item()}"
-                fontcolor = "#FFFFFF"  # トップ左にノード数を表示
+                fontcolor = WHITE.to_hex() + "00"  # トップ左にノード数を表示 (解除中)
             else:
                 node_name = corner_name.split("_")[0][0] + corner_name.split("_")[1][0]
-                fontcolor = "#00000000"  # 表示しない
+                fontcolor = FONT.to_hex() + "00"  # 表示しない
             g.add_node(
                 node_name,
-                color="#00000000",
-                fillcolor="#00000000",
+                color=BORDER.to_hex() + "00",
+                fillcolor=NODE.to_hex() + "00",
                 fontcolor=fontcolor,
                 fontname="Helvetica",
                 fontsize=base_fontsize * 1.5,

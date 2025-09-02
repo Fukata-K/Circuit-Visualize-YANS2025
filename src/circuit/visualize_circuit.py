@@ -10,6 +10,7 @@ from transformer_lens import ActivationCache, HookedTransformer
 from analysis.analysis_logits import load_logit_analysis_results
 from analysis.head_scoring import get_head_scores
 from circuit.circuit_utils import Circuit
+from color import BLUE, BORDER, GRAY, GREEN, NODE, RBMIX, RED, Color
 
 
 def get_color_from_score(score_red: float, score_blue: float) -> str:
@@ -23,16 +24,18 @@ def get_color_from_score(score_red: float, score_blue: float) -> str:
     Returns:
         str: 16進カラーコード (例: "#A1B2C3")
     """
-    r = int(255 - max(0, score_blue - score_red) * 255)
-    b = int(255 - max(0, score_red - score_blue) * 255)
-    g = int(255 - max(score_red, score_blue) * 255)
-    return f"#{r:02x}{g:02x}{b:02x}"
+    s = score_red
+    r = score_blue
+    R = (RBMIX.r * s + BLUE.r * (1 - s)) * r + (RED.r * s + NODE.r * (1 - s)) * (1 - r)
+    G = (RBMIX.g * s + BLUE.g * (1 - s)) * r + (RED.g * s + NODE.g * (1 - s)) * (1 - r)
+    B = (RBMIX.b * s + BLUE.b * (1 - s)) * r + (RED.b * s + NODE.b * (1 - s)) * (1 - r)
+    return Color(R, G, B).to_hex()
 
 
 def get_color_from_logits_rank(rank: float, max_rank: float) -> str:
     """
     target の rank に基づいて色を計算するヘルパー関数.
-    順位が良い (数値が小さい) ほど緑色, 悪い (数値が大きい) ほど白色になる.
+    順位が良い (数値が小さい) ほど緑色, 悪い (数値が大きい) ほどデフォルト色になる.
 
     Args:
         rank (float): target のランク
@@ -45,23 +48,21 @@ def get_color_from_logits_rank(rank: float, max_rank: float) -> str:
     log_max_rank = np.log(max_rank + 1e-8)
     normalized_log_rank = log_rank / log_max_rank if log_max_rank > 0 else 0.0
 
-    # 順位が良いほど緑, 悪いほど白になるように調整
-    r = int(255 * normalized_log_rank)
-    g = 255
-    b = int(255 * normalized_log_rank)
-    return f"#{r:02x}{g:02x}{b:02x}"
+    # 順位が良いほど緑, 悪いほどデフォルト色になるように調整
+    R = BORDER.r * normalized_log_rank + GREEN.r * (1 - normalized_log_rank)
+    G = BORDER.g * normalized_log_rank + GREEN.g * (1 - normalized_log_rank)
+    B = BORDER.b * normalized_log_rank + GREEN.b * (1 - normalized_log_rank)
+    return Color(R, G, B).to_hex()
 
 
 def make_node_color_dict(
     circuit: Circuit,
     red_scores: Dict[str, Optional[float]],
     blue_scores: Dict[str, Optional[float]],
-    input_color: str = "#808080",
-    mlp_color: str = "#CCFFCC",
-    output_color: str = "#FFD700",
-    default_color: str = "#FFFFFF",
-    rank_dict: Optional[Dict[str, float]] = None,
-    max_rank: float = 50257,
+    input_color: str = GRAY.to_hex(),
+    mlp_color: str = NODE.to_hex(),
+    output_color: str = GRAY.to_hex(),
+    default_color: str = NODE.to_hex(),
 ) -> Dict[str, str]:
     """
     Circuit オブジェクトと各ノードのスコア情報から ノード名 -> 色コード の辞書を生成する関数.
@@ -70,17 +71,17 @@ def make_node_color_dict(
         circuit (Circuit): 可視化対象の Circuit オブジェクト
         red_scores  (Dict[str, float]): Attention Head 名をキー, 赤スコアを値とする辞書
         blue_scores (Dict[str, float]): Attention Head 名をキー, 青スコアを値とする辞書
-        input_color   (str): 入力ノードの色 (default: グレー)
-        mlp_color     (str): MLP ノードの色 (default: 薄緑)
-        output_color  (str): 出力ノードの色 (default: 金色)
-        default_color (str): その他ノードの色 (default: 白, 通常は存在しない)
+        input_color   (str): 入力ノードの色
+        mlp_color     (str): MLP ノードの色
+        output_color  (str): 出力ノードの色
+        default_color (str): その他ノードの色
 
     Returns:
         Dict[str, str]: ノード名をキー, 16進カラーコードを値とする辞書
     """
     colors: Dict[str, str] = {}
     for node in circuit.nodes.values():
-        if node.name == "input":
+        if node.name == "input":  # Input
             colors[node.name] = input_color
         elif node.name.startswith("a"):  # Attention Head
             colors[node.name] = get_color_from_score(
@@ -88,13 +89,8 @@ def make_node_color_dict(
                 blue_scores.get(node.name, 0.0) or 0.0,
             )
         elif node.name.startswith("m"):  # MLP
-            if rank_dict is None:
-                colors[node.name] = mlp_color
-            else:
-                colors[node.name] = get_color_from_logits_rank(
-                    rank_dict.get(node.name, max_rank), max_rank
-                )
-        elif node.name == "logits":
+            colors[node.name] = mlp_color
+        elif node.name == "logits":  # Output
             colors[node.name] = output_color
         else:
             colors[node.name] = default_color
@@ -105,7 +101,7 @@ def make_border_color_dict(
     circuit: Circuit,
     rank_dict: Optional[Dict[str, float]] = None,
     max_rank: float = 50257,
-    default_color: str = "#000000",
+    default_color: str = BORDER.to_hex(),
 ) -> Dict[str, str]:
     """
     Circuit オブジェクトと各ノードのランク情報から ノード名 -> ボーダーカラー の辞書を生成する関数.
@@ -114,7 +110,7 @@ def make_border_color_dict(
         circuit (Circuit): 可視化対象の Circuit オブジェクト
         rank_dict (Dict[str, float]): ノード名をキー, ランクを値とする辞書
         max_rank (float): 最大ランク (default: 50257)
-        default_color (str): ランク情報がないノードのデフォルトボーダーカラー (default: black)
+        default_color (str): ランク情報がないノードのデフォルトボーダーカラー
 
     Returns:
         Dict[str, str]: ノード名をキー, ボーダーカラーコードを値とする辞書
@@ -299,25 +295,11 @@ def save_circuit_image(
             prompt_col=prompt_col,
         )
 
-        # Target の出力順位を読み込み
-        try:
-            target_rank = load_logit_analysis_results(
-                base_dir="out/logits",
-                relation_type=relation_type,
-                relation_name=relation_name,
-                analysis_level="layer",
-            )["layer"]["ranks"]
-        except Exception as e:
-            target_rank = None
-            print(f"Error loading target ranks: {e}")
-
         # Subject / Relation Score 及び Target の出力順位からノードの塗りつぶし色を計算
         fillcolors = make_node_color_dict(
             circuit,
             red_scores=head_subject_scores,
             blue_scores=head_relation_scores,
-            rank_dict=target_rank,
-            max_rank=model.cfg.d_vocab,
         )
     else:
         fillcolors = None
