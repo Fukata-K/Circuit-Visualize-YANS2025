@@ -2,6 +2,7 @@ import streamlit as st
 import torch
 from transformer_lens import HookedTransformer
 
+from demo.home import display_home, set_page
 from demo.multi_circuits import display_multi_circuits
 from demo.multi_set_operation_circuits import display_circuit_multi_set_operation
 from demo.pairwise_set_operation_circuits import display_circuit_pairwise_set_operation
@@ -14,13 +15,9 @@ def load_model(model_name="gpt2-small", device=torch.device("cpu")):
     return HookedTransformer.from_pretrained(model_name, device=device)
 
 
-def set_page(page_name):
-    st.session_state.page = page_name
-
-
 # Streamlit UI 設定
-st.set_page_config(layout="wide")
-st.title("Circuit Demo")
+st.set_page_config(page_title="Circuit Visualize Demo", layout="wide")
+st.title("Circuit Visualize Demo (YANS2025)")
 if "page" not in st.session_state:
     st.session_state.page = "home"
 
@@ -31,42 +28,7 @@ model = load_model(model_name=model_name, device=device)
 
 # ページ切り替えボタンと判定
 if st.session_state.page == "home":
-    if st.button("Single Graph"):
-        set_page("single")
-        st.rerun()
-
-    if st.button("Multi Graphs"):
-        set_page("multi")
-        st.rerun()
-
-    if st.button("Pairwise Union"):
-        set_page("pairwise_union")
-        st.rerun()
-
-    if st.button("Pairwise Intersection"):
-        set_page("pairwise_intersection")
-        st.rerun()
-
-    if st.button("Pairwise Difference"):
-        set_page("pairwise_difference")
-        st.rerun()
-
-    # 開発中
-    # if st.button("Weighted Difference"):
-    #     set_page("weighted_difference")
-    #     st.rerun()
-
-    if st.button("Multi Union"):
-        set_page("multi_union")
-        st.rerun()
-
-    if st.button("Multi Intersection"):
-        set_page("multi_intersection")
-        st.rerun()
-
-    if st.button("Multi Difference"):
-        set_page("multi_difference")
-        st.rerun()
+    display_home()
 
 elif st.session_state.page == "single":
     st.header("Single Graph Page")
