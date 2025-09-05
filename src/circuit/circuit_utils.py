@@ -5,7 +5,7 @@ from typing import Optional, Union
 import pandas as pd
 from transformer_lens import HookedTransformer
 
-from color import BGCOLOR, BORDER, EDGE, FONT, GRAY, GREEN, NODE, RED, WHITE, Color
+from color import BGCOLOR, BLACK, BORDER, EDGE, GRAY, GREEN, NODE, RED, WHITE, Color
 from dataset.dataset_utils import EAPDataset
 from eap.attribute import attribute
 from eap.graph import Graph
@@ -127,6 +127,7 @@ class Circuit(Graph):
 
         if fillcolors is None:
             color_map = {
+                "i": GRAY.to_hex(),
                 "a": RED.to_hex(),
                 "m": NODE.to_hex(),
                 "l": GRAY.to_hex(),
@@ -214,6 +215,9 @@ class Circuit(Graph):
             alpha = style_config["alphas"].get(node.name, "FF")
             border_color = style_config["border_colors"].get(node.name, BORDER.to_hex())
             fillcolor = style_config["fillcolors"].get(node.name, NODE.to_hex())
+            fontcolor = (
+                Color.from_hex(fillcolor).pick_text_color_from(BLACK, WHITE).to_hex()
+            )
             scale = style_config["size_scales"].get(node.name, 1.0)
             shape = style_config["shapes"].get(node.name, "box")
             style = "filled, rounded" if shape == "box" else "filled"
@@ -225,7 +229,7 @@ class Circuit(Graph):
                 node.name,
                 color=border_color + alpha,
                 fillcolor=fillcolor + alpha,
-                fontcolor=FONT.to_hex() + alpha,
+                fontcolor=fontcolor + alpha,
                 fontname="Helvetica",
                 fontsize=base_fontsize * scale,
                 shape=shape,
@@ -295,7 +299,7 @@ class Circuit(Graph):
                 fontcolor = WHITE.to_hex() + "00"  # トップ左にノード数を表示 (解除中)
             else:
                 node_name = corner_name.split("_")[0][0] + corner_name.split("_")[1][0]
-                fontcolor = FONT.to_hex() + "00"  # 表示しない
+                fontcolor = BLACK.to_hex() + "00"  # 表示しない
             g.add_node(
                 node_name,
                 color=BORDER.to_hex() + "00",

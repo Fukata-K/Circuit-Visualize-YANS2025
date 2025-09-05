@@ -17,6 +17,8 @@ from paths import (
 )
 
 MAX_EDGE_COUNT = 3000
+EDGE_WIDTH = 3.0
+NODE_BORDER_WIDTH = 7.5
 
 
 def apply_score_threshold_to_graph(
@@ -193,7 +195,8 @@ def generate_circuit_svg(
         base_width=1.5,
         base_height=0.6,
         base_fontsize=24,
-        penwidth=5,
+        edge_width=EDGE_WIDTH,
+        node_border_width=NODE_BORDER_WIDTH,
         display_not_in_graph=False,
     )
 
@@ -305,7 +308,8 @@ def generate_circuit_multi_set_operation_svg(
         base_width=1.5,
         base_height=0.6,
         base_fontsize=24,
-        penwidth=5,
+        edge_width=EDGE_WIDTH,
+        node_border_width=NODE_BORDER_WIDTH,
         display_not_in_graph=False,
     )
 
@@ -418,7 +422,8 @@ def generate_circuit_pairwise_set_operation_svg(
         base_width=1.5,
         base_height=0.6,
         base_fontsize=24,
-        penwidth=5,
+        edge_width=EDGE_WIDTH,
+        node_border_width=NODE_BORDER_WIDTH,
         display_not_in_graph=False,
     )
 

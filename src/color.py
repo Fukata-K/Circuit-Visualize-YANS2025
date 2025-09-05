@@ -42,9 +42,41 @@ class Color:
         """チャネル毎に加算 (255 超えはクリップ)"""
         return cls(c1.r + c2.r, c1.g + c2.g, c1.b + c2.b)
 
+    @staticmethod
+    def _srgb_to_linear(c_0_255: int | float) -> float:
+        """sRGB(0–255) -> 線形化(0–1)"""
+        cs = c_0_255 / 255.0
+        # WCAG 2.x のしきい値 0.03928
+        return cs / 12.92 if cs <= 0.03928 else ((cs + 0.055) / 1.055) ** 2.4
+
+    def relative_luminance(self) -> float:
+        """相対輝度 (0–1), WCAG 定義"""
+        R = self._srgb_to_linear(self.r)
+        G = self._srgb_to_linear(self.g)
+        B = self._srgb_to_linear(self.b)
+        return 0.2126 * R + 0.7152 * G + 0.0722 * B
+
+    def pick_text_color_from(self, c1: Color, c2: Color) -> Color:
+        """
+        この色を背景としたときに候補 c1, c2 のどちらが可読性が高いかをコントラスト比で判定して返す.
+        """
+        Lbg = self.relative_luminance()
+
+        def luminance(c: Color) -> float:
+            return c.relative_luminance()
+
+        def contrast(L1: float, L2: float) -> float:
+            Lmax, Lmin = (L1, L2) if L1 >= L2 else (L2, L1)
+            return (Lmax + 0.05) / (Lmin + 0.05)
+
+        cr1 = contrast(Lbg, luminance(c1))
+        cr2 = contrast(Lbg, luminance(c2))
+
+        return c1 if cr1 >= cr2 else c2
+
 
 # カラーパレット
-BLACK = Color.from_hex("#262626")
+BLACK = Color.from_hex("#393636")
 WHITE = Color.from_hex("#F7F7F7")
 GRAY = Color.from_hex("#A6A6A6")
 RED = Color.from_hex("#ED6517")
@@ -52,8 +84,7 @@ GREEN = Color.from_hex("#63A375")
 BLUE = Color.from_hex("#295FA5")
 
 RBMIX = Color.average(RED, BLUE)
-BGCOLOR = BLACK
-FONT = BLACK
+BGCOLOR = WHITE
 NODE = WHITE
-EDGE = WHITE
-BORDER = WHITE
+EDGE = GRAY
+BORDER = BLACK
