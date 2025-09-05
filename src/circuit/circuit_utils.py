@@ -14,9 +14,14 @@ from visual_style import (
     BLACK,
     BORDER,
     EDGE,
+    EDGE_WIDTH,
+    FONTSIZE,
     GRAY,
     GREEN,
     NODE,
+    NODE_BORDER_WIDTH,
+    NODE_HEIGHT,
+    NODE_WIDTH,
     RED,
     WHITE,
     Color,
@@ -64,27 +69,27 @@ class Circuit(Graph):
         size_scales: Optional[dict[str, float]] = None,
         shapes: Optional[dict[str, str]] = None,
         urls: Optional[dict[str, str]] = None,
-        base_width: float = 0.75,
-        base_height: float = 0.5,
-        base_fontsize: float = 14,
-        node_border_width: float = 3.0,
-        edge_width: float = 1.0,
+        fontsize: float = FONTSIZE,
+        node_width: float = NODE_WIDTH,
+        node_height: float = NODE_HEIGHT,
+        node_border_width: float = NODE_BORDER_WIDTH,
+        edge_width: float = EDGE_WIDTH,
         display_not_in_graph: bool = False,
     ) -> None:
         """
-        ノードごとに塗りつぶし色・透明度・大きさ (倍率) を指定してグラフを画像として保存する.
+        ノードごとに塗りつぶし色・透明度・大きさ (倍率) を指定してグラフを SVG 画像として保存する.
 
         Args:
-            filename (str): 画像ファイルの保存先パス
+            filename (str): 画像ファイルの保存先パス.
             border_colors (dict[str, str], optional): ノード名 -> ボーダーカラーコード ("#RRGGBB") の辞書.
             fillcolors (dict[str, str], optional): ノード名 -> 色コード ("#RRGGBB") の辞書.
             alphas (dict[str, str], optional): ノード名 -> アルファ値 ("80"など) の辞書. 未指定時は全て"FF" (不透明).
-            size_scales (dict[str, float], optional): ノード名 -> 大きさ倍率の辞書. 未指定時は全て1.0.
+            size_scales (dict[str, float], optional): ノード名 -> 大きさ倍率の辞書. 未指定時は全て 1.0.
             shapes (dict[str, str], optional): ノード名 -> 形状 ("box" など) の辞書. 未指定時は全て "box".
             urls (dict[str, str], optional): ノード名 -> URL の辞書. 未指定時は空文字列.
-            base_width (float): ノードの基準幅 (インチ単位).
-            base_height (float): ノードの基準高さ (インチ単位).
-            base_fontsize (float): ノードの基準フォントサイズ.
+            fontsize (float): ノードの基準フォントサイズ.
+            node_width (float): ノードの基準幅 (インチ単位).
+            node_height (float): ノードの基準高さ (インチ単位).
             node_border_width (float): ノードの境界線の太さ.
             edge_width (float): エッジの太さ.
             display_not_in_graph (bool): True の場合はグラフに含まれないノードも表示する.
@@ -111,9 +116,9 @@ class Circuit(Graph):
         self._add_nodes_to_graph(
             g,
             style_config,
-            base_width,
-            base_height,
-            base_fontsize,
+            node_width,
+            node_height,
+            fontsize,
             node_border_width,
             display_not_in_graph,
         )
@@ -123,7 +128,7 @@ class Circuit(Graph):
 
         # ダミーノード追加 (レイアウト調整用)
         self._add_corner_dummy_nodes(
-            g, base_width, base_height, node_border_width, base_fontsize
+            g, node_width, node_height, node_border_width, fontsize
         )
 
         g.layout(prog="neato")
@@ -171,11 +176,11 @@ class Circuit(Graph):
         }
 
     def _get_node_position(
-        self, node_name: str, base_width: float, base_height: float
+        self, node_name: str, node_width: float, node_height: float
     ) -> tuple:
         """ノード名から座標を計算する"""
-        x_spacing = base_width * 1.5
-        y_spacing = base_height * 1.5
+        x_spacing = node_width * 1.5
+        y_spacing = node_height * 1.5
 
         n_heads = self.cfg.get("n_heads", 12)
         n_layers = self.cfg.get("n_layers", 12)
@@ -212,9 +217,9 @@ class Circuit(Graph):
         self,
         g,
         style_config,
-        base_width,
-        base_height,
-        base_fontsize,
+        node_width,
+        node_height,
+        fontsize,
         node_border_width,
         display_not_in_graph,
     ):
@@ -234,7 +239,7 @@ class Circuit(Graph):
             style = "filled, rounded" if shape == "box" else "filled"
             url = style_config["urls"].get(node.name, "")
 
-            pos_x, pos_y = self._get_node_position(node.name, base_width, base_height)
+            pos_x, pos_y = self._get_node_position(node.name, node_width, node_height)
 
             g.add_node(
                 node.name,
@@ -242,11 +247,11 @@ class Circuit(Graph):
                 fillcolor=fillcolor + alpha,
                 fontcolor=fontcolor + alpha,
                 fontname="Helvetica",
-                fontsize=base_fontsize * scale,
+                fontsize=fontsize * scale,
                 shape=shape,
                 style=style,
-                width=base_width * scale,
-                height=base_height * scale,
+                width=node_width * scale,
+                height=node_height * scale,
                 fixedsize=True,
                 penwidth=node_border_width,
                 URL=url,
@@ -297,31 +302,31 @@ class Circuit(Graph):
             )
 
     def _add_corner_dummy_nodes(
-        self, g, base_width, base_height, node_border_width, base_fontsize
+        self, g, node_width, node_height, node_border_width, fontsize
     ):
         """レイアウト調整用のダミーノードを四隅に追加する"""
         for corner_name in ["top_left", "top_right", "bottom_left", "bottom_right"]:
-            x, y = self._get_node_position(corner_name, base_width, base_height)
+            x, y = self._get_node_position(corner_name, node_width, node_height)
             if corner_name == "top_right":
                 node_name = f"E: {self.in_graph.count_nonzero().item()}"
-                fontcolor = WHITE.to_hex() + "00"  # トップ右にエッジ数を表示 (解除中)
+                fontcolor = BGCOLOR.to_hex()  # トップ右にエッジ数を表示 (解除中)
             elif corner_name == "top_left":
                 node_name = f"N: {self.nodes_in_graph.count_nonzero().item()}"
-                fontcolor = WHITE.to_hex() + "00"  # トップ左にノード数を表示 (解除中)
+                fontcolor = BGCOLOR.to_hex()  # トップ左にノード数を表示 (解除中)
             else:
                 node_name = corner_name.split("_")[0][0] + corner_name.split("_")[1][0]
-                fontcolor = BLACK.to_hex() + "00"  # 表示しない
+                fontcolor = BGCOLOR.to_hex()  # 表示しない
             g.add_node(
                 node_name,
-                color=BORDER.to_hex() + "00",
-                fillcolor=NODE.to_hex() + "00",
+                color=BGCOLOR.to_hex(),
+                fillcolor=BGCOLOR.to_hex(),
                 fontcolor=fontcolor,
                 fontname="Helvetica",
-                fontsize=base_fontsize * 1.5,
+                fontsize=fontsize * 1.5,
                 shape="box",
                 style="filled, rounded",
-                width=base_width,
-                height=base_height,
+                width=node_width,
+                height=node_height,
                 fixedsize=True,
                 penwidth=node_border_width,
                 pos=f"{x},{y}!",

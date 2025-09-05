@@ -8,7 +8,21 @@ from transformer_lens import ActivationCache, HookedTransformer
 from analysis.analysis_logits import load_logit_analysis_results
 from analysis.head_scoring import get_head_scores
 from circuit.circuit_utils import Circuit
-from visual_style import BLUE, BORDER, GRAY, GREEN, NODE, RBMIX, RED, Color
+from visual_style import (
+    BLUE,
+    BORDER,
+    EDGE_WIDTH,
+    FONTSIZE,
+    GRAY,
+    GREEN,
+    NODE,
+    NODE_BORDER_WIDTH,
+    NODE_HEIGHT,
+    NODE_WIDTH,
+    RBMIX,
+    RED,
+    Color,
+)
 
 
 def get_color_from_score(score_red: float, score_blue: float) -> str:
@@ -218,16 +232,16 @@ def save_circuit_image(
     relation_type: Optional[str] = None,
     use_self_attention: bool = True,
     self_attention_threshold: float = 0.7,
-    use_fillcolor: bool = False,
+    use_fillcolor: bool = True,
     use_size: bool = False,
     use_alpha: bool = False,
     alpha_strength: float = 0.9,
     urls: Optional[Dict[str, str]] = None,
-    base_width: float = 0.75,
-    base_height: float = 0.5,
-    base_fontsize: int = 14,
-    edge_width: float = 1.0,
-    node_border_width: float = 10.0,
+    fontsize: int = FONTSIZE,
+    node_width: float = NODE_WIDTH,
+    node_height: float = NODE_HEIGHT,
+    node_border_width: float = NODE_BORDER_WIDTH,
+    edge_width: float = EDGE_WIDTH,
     display_not_in_graph: bool = False,
 ) -> None:
     """
@@ -240,15 +254,15 @@ def save_circuit_image(
             注意: cache に None を渡す場合は各種 Attention Score が計算済みであることを前提とする
         df (pd.DataFrame): データセット
         circuit (Circuit): 可視化対象の Circuit オブジェクト
+        relation_name (str): Relation 名 (例: "city_in_country")
+        head_scores_dir (str): Attention Head スコアが保存されているディレクトリ
         output_path (str): 画像ファイルの保存先パス
         metric (str): "mean", "pearson", "auc" のいずれか (スコア計算指標)
             - "mean"   : 対象部分に対する平均 Attention 値
             - "pearson": 対象部分に対する Pearson 相関係数を正規化したもの
             - "auc"    : 対象部分に対する AUC 値を正規化したもの
         prompt_col (str): プロンプトが格納されているカラム名
-        head_scores_dir (str): Attention Head スコアが保存されているディレクトリ
         relation_type (str): Relation タイプ (例: "factual", "bias")
-        relation_name (str): Relation 名 (例: "city_in_country")
         use_self_attention (bool): Self Attention Score を形状として反映させるか
         self_attention_threshold (float): 強い Self Attention とみなす閾値
             補足: pearson の場合は 0.7, auc の場合は 0.6 で強い Self Attention とみなす
@@ -258,11 +272,11 @@ def save_circuit_image(
         use_alpha     (bool): ノードの透明度を指定するか
         alpha_strength (float): ノードの透明度強度 (0.0-1.0)
         urls (Dict[str, str]): ノード名をキー, 画像表示用の JavaScript URL を値とする辞書
-        base_width   (float): ノードの基本幅
-        base_height  (float): ノードの基本高さ
-        base_fontsize  (int): ノードの基本フォントサイズ
-        edge_width (float): エッジの幅
+        fontsize  (int): ノードの基本フォントサイズ
+        node_width   (float): ノードの基本幅
+        node_height  (float): ノードの基本高さ
         node_border_width (float): ノードの枠線幅
+        edge_width (float): エッジの幅
         display_not_in_graph (bool): グラフに含まれないノードも表示するか
 
     Returns:
@@ -374,12 +388,11 @@ def save_circuit_image(
     else:
         shapes = None
 
-    # 画像として保存
-    Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     # pygraphviz が利用可能かチェック
     import importlib.util
 
     if importlib.util.find_spec("pygraphviz") is not None:
+        Path(output_path).parent.mkdir(parents=True, exist_ok=True)
         circuit.to_svg_with_node_styles(
             output_path,
             border_colors=border_colors,
@@ -388,9 +401,9 @@ def save_circuit_image(
             size_scales=size_scales,
             shapes=shapes,
             urls=urls,
-            base_width=base_width,
-            base_height=base_height,
-            base_fontsize=base_fontsize,
+            fontsize=fontsize,
+            node_width=node_width,
+            node_height=node_height,
             node_border_width=node_border_width,
             edge_width=edge_width,
             display_not_in_graph=display_not_in_graph,

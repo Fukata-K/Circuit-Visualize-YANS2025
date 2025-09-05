@@ -15,10 +15,7 @@ from paths import (
     get_svg_path,
     image_to_base64,
 )
-
-MAX_EDGE_COUNT = 3000
-EDGE_WIDTH = 3.0
-NODE_BORDER_WIDTH = 7.5
+from visual_style import MAX_EDGE_COUNT
 
 
 def apply_score_threshold_to_graph(
@@ -180,24 +177,10 @@ def generate_circuit_svg(
         cache=None,
         df=df,
         circuit=circuit,
-        output_path=svg_path,
-        metric="pearson",
-        prompt_col="clean",
-        head_scores_dir=head_scores_dir,
         relation_name=relation_name,
-        use_self_attention=True,
-        self_attention_threshold=0.7,
-        use_fillcolor=True,
-        use_size=True,
-        use_alpha=True,
-        alpha_strength=0.8,
+        head_scores_dir=head_scores_dir,
+        output_path=svg_path,
         urls=urls,
-        base_width=1.5,
-        base_height=0.6,
-        base_fontsize=24,
-        edge_width=EDGE_WIDTH,
-        node_border_width=NODE_BORDER_WIDTH,
-        display_not_in_graph=False,
     )
 
 
@@ -293,24 +276,10 @@ def generate_circuit_multi_set_operation_svg(
         cache=None,
         df=df,
         circuit=base_circuit,
-        output_path=svg_path,
-        metric="pearson",
-        prompt_col="clean",
-        head_scores_dir=head_scores_dir,
         relation_name=base_relation_name,
-        use_self_attention=True,
-        self_attention_threshold=0.7,
-        use_fillcolor=True,
-        use_size=True,
-        use_alpha=True,
-        alpha_strength=0.8,
+        head_scores_dir=head_scores_dir,
+        output_path=svg_path,
         urls=urls,
-        base_width=1.5,
-        base_height=0.6,
-        base_fontsize=24,
-        edge_width=EDGE_WIDTH,
-        node_border_width=NODE_BORDER_WIDTH,
-        display_not_in_graph=False,
     )
 
 
@@ -407,24 +376,10 @@ def generate_circuit_pairwise_set_operation_svg(
         cache=None,
         df=df,
         circuit=base_circuit,
-        output_path=svg_path,
-        metric="pearson",
-        prompt_col="clean",
-        head_scores_dir=head_scores_dir,
         relation_name=base_relation_name,
-        use_self_attention=True,
-        self_attention_threshold=0.7,
-        use_fillcolor=True,
-        use_size=True,
-        use_alpha=True,
-        alpha_strength=0.8,
+        head_scores_dir=head_scores_dir,
+        output_path=svg_path,
         urls=urls,
-        base_width=1.5,
-        base_height=0.6,
-        base_fontsize=24,
-        edge_width=EDGE_WIDTH,
-        node_border_width=NODE_BORDER_WIDTH,
-        display_not_in_graph=False,
     )
 
 
