@@ -5,11 +5,22 @@ from typing import Optional, Union
 import pandas as pd
 from transformer_lens import HookedTransformer
 
-from color import BGCOLOR, BLACK, BORDER, EDGE, GRAY, GREEN, NODE, RED, WHITE, Color
 from dataset.dataset_utils import EAPDataset
 from eap.attribute import attribute
 from eap.graph import Graph
 from evaluate.metric import logit_diff
+from visual_style import (
+    BGCOLOR,
+    BLACK,
+    BORDER,
+    EDGE,
+    GRAY,
+    GREEN,
+    NODE,
+    RED,
+    WHITE,
+    Color,
+)
 
 
 class Circuit(Graph):

@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from color import BGCOLOR
+from visual_style import BGCOLOR
 
 
 def create_svg_html_content(

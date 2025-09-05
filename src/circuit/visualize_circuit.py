@@ -8,7 +8,7 @@ from transformer_lens import ActivationCache, HookedTransformer
 from analysis.analysis_logits import load_logit_analysis_results
 from analysis.head_scoring import get_head_scores
 from circuit.circuit_utils import Circuit
-from color import BLUE, BORDER, GRAY, GREEN, NODE, RBMIX, RED, Color
+from visual_style import BLUE, BORDER, GRAY, GREEN, NODE, RBMIX, RED, Color
 
 
 def get_color_from_score(score_red: float, score_blue: float) -> str:
