@@ -2,7 +2,7 @@ import streamlit as st
 import torch
 from transformer_lens import HookedTransformer
 
-from demo.home import display_home, set_page
+from demo.home import display_home, display_sidebar_navigation, set_page
 from demo.multi_circuits import display_multi_circuits
 from demo.multi_set_operation_circuits import display_circuit_multi_set_operation
 from demo.pairwise_set_operation_circuits import display_circuit_pairwise_set_operation
@@ -31,65 +31,41 @@ if st.session_state.page == "home":
     display_home()
 
 elif st.session_state.page == "single":
-    st.header("Single Graph Page")
-    if st.button("Back to Home"):
-        set_page("home")
-        st.rerun()
+    st.header("Single Circuit Page")
     display_single_circuit(model)
 
 elif st.session_state.page == "multi":
-    st.header("Multi Graphs Page")
-    if st.button("Back to Home"):
-        set_page("home")
-        st.rerun()
+    st.header("Multi Circuits Page")
     display_multi_circuits(model)
 
 elif st.session_state.page == "pairwise_union":
     st.header("Pairwise Union Page")
-    if st.button("Back to Home"):
-        set_page("home")
-        st.rerun()
     display_circuit_pairwise_set_operation(model, mode="union")
 
 elif st.session_state.page == "pairwise_intersection":
     st.header("Pairwise Intersection Page")
-    if st.button("Back to Home"):
-        set_page("home")
-        st.rerun()
     display_circuit_pairwise_set_operation(model, mode="intersection")
 
 elif st.session_state.page == "pairwise_difference":
     st.header("Pairwise Difference Page")
-    if st.button("Back to Home"):
-        set_page("home")
-        st.rerun()
     display_circuit_pairwise_set_operation(model, mode="difference")
 
 # 開発中
 # elif st.session_state.page == "weighted_difference":
 #     st.header("Weighted Difference Page")
-#     if st.button("Back to Home"):
-#         set_page("home")
-#         st.rerun()
 #     display_circuit_pairwise_set_operation(model, mode="weighted_difference")
 
 elif st.session_state.page == "multi_union":
     st.header("Multi Union Page")
-    if st.button("Back to Home"):
-        set_page("home")
-        st.rerun()
     display_circuit_multi_set_operation(model, mode="union")
 
 elif st.session_state.page == "multi_intersection":
     st.header("Multi Intersection Page")
-    if st.button("Back to Home"):
-        set_page("home")
-        st.rerun()
     display_circuit_multi_set_operation(model, mode="intersection")
 
 elif st.session_state.page == "multi_difference":
     st.header("Multi Difference Page")
-    if st.button("Back to Home"):
-        set_page("home")
-        st.rerun()
     display_circuit_multi_set_operation(model, mode="difference")
+
+# サイドバーにページナビゲーションを表示
+display_sidebar_navigation()

@@ -99,7 +99,7 @@ def display_circuit_pairwise_set_operation(
             )
 
     # 描画実行ボタン
-    generate_button = st.sidebar.button("Generate Set Operations")
+    generate_button = st.sidebar.button("Generate Set Circuits", use_container_width=True)
 
     # ボタンが押されたときのみ描画処理を実行
     if generate_button:

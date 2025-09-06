@@ -55,7 +55,7 @@ def display_single_circuit(model: HookedTransformer) -> None:
     )
 
     # 描画実行ボタン
-    generate_button = st.sidebar.button("Generate Circuit")
+    generate_button = st.sidebar.button("Generate Circuit", use_container_width=True)
 
     # 現在の設定をキーとして SVG ファイル名を生成
     svg_path = get_svg_path(

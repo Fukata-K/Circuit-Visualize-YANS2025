@@ -72,7 +72,7 @@ def display_multi_circuits(model: HookedTransformer) -> None:
     )
 
     # 描画実行ボタン
-    generate_button = st.sidebar.button("Generate Circuits")
+    generate_button = st.sidebar.button("Generate Circuits", use_container_width=True)
 
     # ボタンが押されたときのみ描画処理を実行
     if generate_button:
