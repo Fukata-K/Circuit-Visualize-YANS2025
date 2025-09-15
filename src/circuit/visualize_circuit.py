@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Dict, Literal, Optional, Union
+from typing import Literal
 
 import numpy as np
 import pandas as pd
@@ -69,29 +69,29 @@ def get_color_from_logits_rank(rank: float, max_rank: float) -> str:
 
 def make_node_color_dict(
     circuit: Circuit,
-    red_scores: Dict[str, Optional[float]],
-    blue_scores: Dict[str, Optional[float]],
+    red_scores: dict[str, float | None],
+    blue_scores: dict[str, float | None],
     input_color: str = GRAY.to_hex(),
     mlp_color: str = NODE.to_hex(),
     output_color: str = GRAY.to_hex(),
     default_color: str = NODE.to_hex(),
-) -> Dict[str, str]:
+) -> dict[str, str]:
     """
     Circuit オブジェクトと各ノードのスコア情報から ノード名 -> 色コード の辞書を生成する関数.
 
     Args:
         circuit (Circuit): 可視化対象の Circuit オブジェクト
-        red_scores  (Dict[str, float]): Attention Head 名をキー, 赤スコアを値とする辞書
-        blue_scores (Dict[str, float]): Attention Head 名をキー, 青スコアを値とする辞書
+        red_scores  (dict[str, float]): Attention Head 名をキー, 赤スコアを値とする辞書
+        blue_scores (dict[str, float]): Attention Head 名をキー, 青スコアを値とする辞書
         input_color   (str): 入力ノードの色
         mlp_color     (str): MLP ノードの色
         output_color  (str): 出力ノードの色
         default_color (str): その他ノードの色
 
     Returns:
-        Dict[str, str]: ノード名をキー, 16進カラーコードを値とする辞書
+        dict[str, str]: ノード名をキー, 16進カラーコードを値とする辞書
     """
-    colors: Dict[str, str] = {}
+    colors: dict[str, str] = {}
     for node in circuit.nodes.values():
         if node.name == "input":  # Input
             colors[node.name] = input_color
@@ -111,23 +111,23 @@ def make_node_color_dict(
 
 def make_border_color_dict(
     circuit: Circuit,
-    rank_dict: Optional[Dict[str, float]] = None,
+    rank_dict: dict[str, float] | None = None,
     max_rank: float = 50257,
     default_color: str = BORDER.to_hex(),
-) -> Dict[str, str]:
+) -> dict[str, str]:
     """
     Circuit オブジェクトと各ノードのランク情報から ノード名 -> ボーダーカラー の辞書を生成する関数.
 
     Args:
         circuit (Circuit): 可視化対象の Circuit オブジェクト
-        rank_dict (Dict[str, float]): ノード名をキー, ランクを値とする辞書
+        rank_dict (dict[str, float]): ノード名をキー, ランクを値とする辞書
         max_rank (float): 最大ランク (default: 50257)
         default_color (str): ランク情報がないノードのデフォルトボーダーカラー
 
     Returns:
-        Dict[str, str]: ノード名をキー, ボーダーカラーコードを値とする辞書
+        dict[str, str]: ノード名をキー, ボーダーカラーコードを値とする辞書
     """
-    border_colors: Dict[str, str] = {}
+    border_colors: dict[str, str] = {}
     if rank_dict is None:
         for node in circuit.nodes.values():
             border_colors[node.name] = default_color
@@ -145,19 +145,19 @@ def make_border_color_dict(
 
 def make_node_size_scale_dict(
     circuit: Circuit,
-    score: Optional[Dict[str, float]] = None,
-) -> Dict[str, float]:
+    score: dict[str, float] | None = None,
+) -> dict[str, float]:
     """
     Circuit オブジェクトと各ノードのスコア情報から ノード名 -> サイズ倍率 の辞書を生成する関数.
 
     Args:
         circuit (Circuit): 可視化対象の Circuit オブジェクト
-        score (Dict[str, float]): Attention Head 名をキー, スコアを値とする辞書
+        score (dict[str, float]): Attention Head 名をキー, スコアを値とする辞書
 
     Returns:
-        Dict[str, float]: ノード名をキー, サイズ倍率を値とする辞書
+        dict[str, float]: ノード名をキー, サイズ倍率を値とする辞書
     """
-    size_scale_dict: Dict[str, float] = {}
+    size_scale_dict: dict[str, float] = {}
     for node in circuit.nodes.values():
         scale = 1.0 + score.get(node.name, 0.0) if score is not None else 1.0
         size_scale_dict[node.name] = scale
@@ -167,7 +167,7 @@ def make_node_size_scale_dict(
 def make_node_alpha_dict(
     circuit: Circuit,
     alpha_strength: float = 0.9,
-) -> Dict[str, str]:
+) -> dict[str, str]:
     """
     Circuit オブジェクトから ノード名 -> 透明度 (16進文字列) の辞書を生成する関数.
     グラフに含まれるノード (node.in_graph が True) は完全不透明, 含まれないノードは半透明になる.
@@ -178,9 +178,9 @@ def make_node_alpha_dict(
         alpha_strength (float): 半透明ノードの透明度強度 (0.0 で完全不透明, 1.0 で完全透明に近くなる)
 
     Returns:
-        Dict[str, str]: ノード名をキー, 透明度 (16進文字列) を値とする辞書
+        dict[str, str]: ノード名をキー, 透明度 (16進文字列) を値とする辞書
     """
-    alpha_dict: Dict[str, str] = {}
+    alpha_dict: dict[str, str] = {}
     alpha_strength = max(0.0, min(1.0, alpha_strength))  # 0.0-1.0 の範囲にクリップ
     for node in circuit.nodes.values():
         alpha = 255 if node.in_graph else int(255 * (1 - alpha_strength))
@@ -190,25 +190,25 @@ def make_node_alpha_dict(
 
 def make_node_shape_dict(
     circuit: Circuit,
-    score: Optional[Dict[str, Optional[float]]] = None,
+    score: dict[str, float | None] | None = None,
     score_threshold: float = 0.7,
     base_shape: str = "box",
     over_shape: str = "diamond",
-) -> Dict[str, str]:
+) -> dict[str, str]:
     """
     Circuit オブジェクトと各ノードのスコア情報から ノード名 -> ノード形状 の辞書を生成する関数.
 
     Args:
         circuit (Circuit): 可視化対象の Circuit オブジェクト
-        score (Dict[str, float]): Attention Head 名をキー, スコアを値とする辞書
+        score (dict[str, float]): Attention Head 名をキー, スコアを値とする辞書
         score_threshold (float): スコアの閾値 (0.0-1.0)
         base_shape (str): スコアが閾値未満のノードの基本形状 (default: "box")
         over_shape (str): スコアが閾値以上のノードの形状 (default: "diamond")
 
     Returns:
-        Dict[str, str]: ノード名をキー, ノード形状を値とする辞書
+        dict[str, str]: ノード名をキー, ノード形状を値とする辞書
     """
-    shape_dict: Dict[str, str] = {}
+    shape_dict: dict[str, str] = {}
     for node in circuit.nodes.values():
         shape = base_shape  # デフォルトは base_shape
         if score is not None:
@@ -221,22 +221,22 @@ def make_node_shape_dict(
 
 def save_circuit_image(
     model: HookedTransformer,
-    cache: Union[Dict, ActivationCache, None],
+    cache: dict | ActivationCache | None,
     df: pd.DataFrame,
     circuit: Circuit,
     relation_name: str,
-    head_scores_dir: Union[str, Path],
-    output_path: Union[str, Path] = "circuit_attention.svg",
+    head_scores_dir: str | Path,
+    output_path: str | Path = "circuit_attention.svg",
     metric: Literal["mean", "pearson", "auc"] = "pearson",
     prompt_col: str = "clean",
-    relation_type: Optional[str] = None,
+    relation_type: str | None = None,
     use_self_attention: bool = True,
     self_attention_threshold: float = 0.7,
     use_fillcolor: bool = True,
     use_size: bool = False,
     use_alpha: bool = False,
     alpha_strength: float = 0.9,
-    urls: Optional[Dict[str, str]] = None,
+    urls: dict[str, str] | None = None,
     fontsize: int = FONTSIZE,
     node_width: float = NODE_WIDTH,
     node_height: float = NODE_HEIGHT,
@@ -250,7 +250,7 @@ def save_circuit_image(
 
     Args:
         model (HookedTransformer): トークナイズ用モデル
-        cache (Union[Dict, ActivationCache, None]): Attention Pattern のキャッシュ
+        cache (Union[dict, ActivationCache, None]): Attention Pattern のキャッシュ
             注意: cache に None を渡す場合は各種 Attention Score が計算済みであることを前提とする
         df (pd.DataFrame): データセット
         circuit (Circuit): 可視化対象の Circuit オブジェクト
@@ -271,7 +271,7 @@ def save_circuit_image(
         use_size      (bool): ノードのサイズ倍率を指定するか
         use_alpha     (bool): ノードの透明度を指定するか
         alpha_strength (float): ノードの透明度強度 (0.0-1.0)
-        urls (Dict[str, str]): ノード名をキー, 画像表示用の JavaScript URL を値とする辞書
+        urls (dict[str, str]): ノード名をキー, 画像表示用の JavaScript URL を値とする辞書
         fontsize  (int): ノードの基本フォントサイズ
         node_width   (float): ノードの基本幅
         node_height  (float): ノードの基本高さ

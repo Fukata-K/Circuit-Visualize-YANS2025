@@ -1,14 +1,6 @@
-from functools import partial
 from pathlib import Path
-from typing import Optional, Union
 
-import pandas as pd
-from transformer_lens import HookedTransformer
-
-from dataset.dataset_utils import EAPDataset
-from eap.attribute import attribute
 from eap.graph import Graph
-from evaluate.metric import logit_diff
 from visual_style import (
     BGCOLOR,
     BLACK,
@@ -53,7 +45,7 @@ class Circuit(Graph):
         return circuit
 
     @classmethod
-    def from_pt(cls, pt_path: Union[str, Path]) -> "Circuit":
+    def from_pt(cls, pt_path: str | Path) -> "Circuit":
         # 基底クラスの from_pt を呼び出して Graph オブジェクトを取得
         graph = super().from_pt(str(pt_path))
 
@@ -62,13 +54,13 @@ class Circuit(Graph):
 
     def to_svg_with_node_styles(
         self,
-        filename: Union[str, Path],
-        border_colors: Optional[dict[str, str]] = None,
-        fillcolors: Optional[dict[str, str]] = None,
-        alphas: Optional[dict[str, str]] = None,
-        size_scales: Optional[dict[str, float]] = None,
-        shapes: Optional[dict[str, str]] = None,
-        urls: Optional[dict[str, str]] = None,
+        filename: str | Path,
+        border_colors: dict[str, str] | None = None,
+        fillcolors: dict[str, str] | None = None,
+        alphas: dict[str, str] | None = None,
+        size_scales: dict[str, float] | None = None,
+        shapes: dict[str, str] | None = None,
+        urls: dict[str, str] | None = None,
         fontsize: float = FONTSIZE,
         node_width: float = NODE_WIDTH,
         node_height: float = NODE_HEIGHT,
@@ -80,7 +72,7 @@ class Circuit(Graph):
         ノードごとに塗りつぶし色・透明度・大きさ (倍率) を指定してグラフを SVG 画像として保存する.
 
         Args:
-            filename (str): 画像ファイルの保存先パス.
+            filename (str | Path): 画像ファイルの保存先パス.
             border_colors (dict[str, str], optional): ノード名 -> ボーダーカラーコード ("#RRGGBB") の辞書.
             fillcolors (dict[str, str], optional): ノード名 -> 色コード ("#RRGGBB") の辞書.
             alphas (dict[str, str], optional): ノード名 -> アルファ値 ("80"など) の辞書. 未指定時は全て"FF" (不透明).
@@ -432,88 +424,3 @@ class Circuit(Graph):
         for edge in self.edges.values():
             if not edge.parent.in_graph or not edge.child.in_graph:
                 edge.in_graph = False
-
-
-def score_graph_with_eap_ig(
-    df: pd.DataFrame,
-    model: HookedTransformer,
-    batch_size: int = 128,
-    device: str = "cuda",
-    ig_steps: int = 5,
-    prepend_bos: bool = True,
-    quiet: bool = False,
-) -> Circuit:
-    """
-    指定したデータフレームとモデルで EAP-IG を用いてグラフにスコア付けを行い, スコア付け済みの Circuit を返す.
-    データフレームには 'clean', 'corrupted', 'correct_idx', 'incorrect_idx' の列が必要.
-
-    Args:
-        df (pd.DataFrame): 入力データセット (各行が 1サンプル)
-        model (HookedTransformer): 評価に用いるモデル
-        batch_size (int): DataLoader のバッチサイズ
-        device (str): モデル・データの配置先デバイス (例: "cuda")
-        ig_steps (int): EAP-IG の積分ステップ数
-        prepend_bos (bool): BOS トークンを入力に追加するかどうか (default: True)
-        quiet (bool): True の場合スコアリングの進捗を表示しない (default: False)
-
-    Returns:
-        Circuit: スコア付け済みの Circuit オブジェクト
-
-    Notes:
-        スコア付けはエッジに対して行われ, 各エッジのスコアはモデルの出力に対する寄与度を表す.
-    """
-    # データセットから DataLoader を作成
-    ds = EAPDataset(df)
-    dataloader = ds.to_dataloader(batch_size)
-
-    # モデルからグラフを生成
-    g = Circuit.from_model(model)
-
-    # EAP-IG でスコア付け
-    attribute(
-        model=model,
-        graph=g,
-        dataloader=dataloader,
-        metric=partial(logit_diff, loss=True, mean=True),  # type: ignore
-        method="EAP-IG-inputs",
-        ig_steps=ig_steps,
-        device=device,
-        prepend_bos=prepend_bos,
-        quiet=quiet,
-    )
-
-    # スコア付け済みのグラフを Circuit に変換して返す
-    return Circuit.from_graph(g)
-
-
-def save_circuit_as_json_and_pt(
-    circuit: Circuit,
-    json_path: Optional[Union[str, Path]] = None,
-    pt_path: Optional[Union[str, Path]] = None,
-    quiet: bool = False,
-) -> None:
-    """
-    Circuit オブジェクト (circuit) を JSON, PT 形式で指定パスに保存する関数.
-
-    Args:
-        circuit (Circuit): Circuit オブジェクト
-        json_path (str): JSON ファイルの保存パス (None の場合は保存しない)
-        pt_path (str): PT ファイルの保存パス (None の場合は保存しない)
-        quiet (bool): True の場合保存の進捗を表示しない (default: False)
-
-    Returns:
-        None
-    """
-    # JSON ファイルとして保存
-    if json_path is not None:
-        Path(json_path).parent.mkdir(parents=True, exist_ok=True)
-        circuit.to_json(str(json_path))
-        if not quiet:
-            print(f"Saved JSON file: {json_path}")
-
-    # PT ファイルとして保存 (PyTorch 形式)
-    if pt_path is not None:
-        Path(pt_path).parent.mkdir(parents=True, exist_ok=True)
-        circuit.to_pt(str(pt_path))
-        if not quiet:
-            print(f"Saved PT file: {pt_path}")

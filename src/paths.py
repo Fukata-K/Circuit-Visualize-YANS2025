@@ -1,7 +1,6 @@
 import base64
 import os
 from pathlib import Path
-from typing import Dict, Optional, Union
 
 DATA_DIR = Path("data")
 OUT_DIR = Path("out")
@@ -17,8 +16,8 @@ SVG_DIR = Path("demo/figures")
 
 def get_dataframe_path(
     relation_name: str,
-    relation_type: Optional[str] = None,
-    base_dir: Union[str, Path] = DATAFRAME_DIR,
+    relation_type: str | None = None,
+    base_dir: str | Path = DATAFRAME_DIR,
     ensure_parent: bool = False,
 ) -> Path:
     """
@@ -70,8 +69,8 @@ def get_dataframe_path(
 
 def get_circuit_score_path(
     relation_name: str,
-    relation_type: Optional[str] = None,
-    base_dir: Union[str, Path] = CIRCUIT_SCORE_DIR,
+    relation_type: str | None = None,
+    base_dir: str | Path = CIRCUIT_SCORE_DIR,
     ensure_parent: bool = False,
 ) -> Path:
     """
@@ -121,8 +120,8 @@ def get_circuit_score_path(
 
 def get_cache_path(
     relation_name: str,
-    relation_type: Optional[str] = None,
-    base_dir: Union[str, Path] = CACHE_DIR,
+    relation_type: str | None = None,
+    base_dir: str | Path = CACHE_DIR,
     ensure_parent: bool = False,
 ) -> Path:
     """
@@ -170,8 +169,8 @@ def get_cache_path(
 
 def get_scored_graph_path(
     relation_name: str,
-    relation_type: Optional[str] = None,
-    base_dir: Union[str, Path] = SCORED_GRAPH_DIR,
+    relation_type: str | None = None,
+    base_dir: str | Path = SCORED_GRAPH_DIR,
     ensure_parent: bool = False,
 ) -> Path:
     """
@@ -224,8 +223,8 @@ def get_head_score_path(
     relation_name: str,
     score_type: str,
     metric: str,
-    relation_type: Optional[str] = None,
-    base_dir: Union[str, Path] = HEAD_SCORE_DIR,
+    relation_type: str | None = None,
+    base_dir: str | Path = HEAD_SCORE_DIR,
     ensure_parent: bool = False,
 ) -> Path:
     """
@@ -282,8 +281,8 @@ def get_attention_image_path(
     relation_name: str,
     layer: int,
     head: int,
-    relation_type: Optional[str] = None,
-    base_dir: Union[str, Path] = ATTENTION_PATTERN_DIR,
+    relation_type: str | None = None,
+    base_dir: str | Path = ATTENTION_PATTERN_DIR,
     ensure_parent: bool = False,
 ) -> Path:
     """
@@ -336,8 +335,8 @@ def get_attention_image_path(
 def get_logit_result_path(
     relation_name: str,
     level: str,  # "layer" | "head"
-    relation_type: Optional[str] = None,
-    base_dir: Union[str, Path] = LOGITS_DIR,
+    relation_type: str | None = None,
+    base_dir: str | Path = LOGITS_DIR,
     ensure_parent: bool = False,
 ) -> Path:
     """
@@ -393,12 +392,12 @@ def get_logit_result_path(
 def get_logit_result_paths(
     relation_name: str,
     analysis_level: str = "both",  # "layer" | "head" | "both"
-    relation_type: Optional[str] = None,
-    base_dir: Union[str, Path] = LOGITS_DIR,
+    relation_type: str | None = None,
+    base_dir: str | Path = LOGITS_DIR,
     ensure_parent: bool = False,
-) -> Dict[str, Path]:
+) -> dict[str, Path]:
     """
-    analysis_level に応じて必要なレベルのパスをまとめて返す.
+    analysis_level に応じて必要なレベルのパスをまとめて取得する.
 
     Args:
         relation_name (str): リレーション名 (例: "city_in_country").
@@ -431,11 +430,11 @@ def get_logit_result_paths(
 
 def get_svg_path(
     base_relation: str,
-    other_relation: Optional[str | list[str]] = None,
-    set_operation_mode: Optional[str] = None,
-    topn: Optional[int] = None,
-    perf_percent: Optional[float] = None,
-    base_dir: Union[str, Path] = SVG_DIR,
+    other_relation: str | list[str] | None = None,
+    set_operation_mode: str | None = None,
+    topn: int | None = None,
+    perf_percent: float | None = None,
+    base_dir: str | Path = SVG_DIR,
 ) -> Path:
     """
     SVG ファイルのパスを生成する関数.
@@ -485,9 +484,9 @@ def get_svg_path(
     return svg_path.with_suffix(".svg")
 
 
-def image_to_base64(image_path: Union[str, Path]) -> Optional[str]:
+def image_to_base64(image_path: str | Path) -> str | None:
     """
-    画像ファイルを Base64 エンコードされた文字列に変換する関数.
+    画像ファイルを Base64 エンコードされた文字列に変換する.
 
     Args:
         image_path (Union[str, Path]): 画像ファイルのパス.
@@ -499,16 +498,3 @@ def image_to_base64(image_path: Union[str, Path]) -> Optional[str]:
         with open(image_path, "rb") as img_file:
             return base64.b64encode(img_file.read()).decode()
     return None
-
-
-def main():
-    # テスト用の関数
-    try:
-        path = get_cache_path("city_in_country_3")
-        print(f"Cache file path: {path}")
-    except (FileNotFoundError, RuntimeError) as e:
-        print(f"Error: {e}")
-
-
-if __name__ == "__main__":
-    main()

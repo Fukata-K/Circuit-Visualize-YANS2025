@@ -1,6 +1,6 @@
 import pickle
 from pathlib import Path
-from typing import Callable, Literal, Union
+from typing import Callable, Literal
 
 import pandas as pd
 import torch
@@ -418,7 +418,7 @@ def compute_head_relation_score(
 
 
 def load_head_scores(
-    scores_dir: Union[str, Path],
+    scores_dir: str | Path,
     score_type: str,
     metric: str,
     relation_name: str,
@@ -456,7 +456,7 @@ def load_head_scores(
 
 
 def get_head_scores(
-    scores_dir: Union[str, Path],
+    scores_dir: str | Path,
     score_type: Literal["self_scores", "subject_scores", "relation_scores"],
     metric: Literal["mean", "pearson", "auc"],
     relation_name: str,
@@ -523,74 +523,3 @@ def get_head_scores(
         print(f"Scores saved to: {score_path}")
 
     return scores
-
-
-def main(
-    model_name: str = "gpt2-small",
-    cache_dir: str = "out/cache",
-    dataset_dir: str = "data/filtered_gpt2_small",
-    output_dir: str = "out/head_scores",
-    prompt_col: str = "clean",
-    metric: Literal["mean", "pearson", "auc"] = "pearson",
-):
-    # デバイスの設定
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print(f"Using device: {device}")
-
-    # モデルの設定
-    model = HookedTransformer.from_pretrained(model_name, device=device)
-
-    # ディレクトリ内の全ての CSV ファイルを取得
-    dataset_csv_files_dir = Path(dataset_dir)
-    dataset_csv_files = sorted(list(dataset_csv_files_dir.glob("**/*.csv")))
-    print(f"Found {len(dataset_csv_files)} dataset files.")
-
-    for dataset_path in dataset_csv_files:
-        # データセットの読み込み
-        df = pd.read_csv(dataset_path)
-
-        # データセット名と種類を取得
-        p = Path(dataset_path)
-        relation_type = p.parent.name
-        relation_name = p.stem
-
-        # 観察したい cache の読み込み (glob でファイルを検索)
-        cache_pattern = Path(cache_dir) / relation_type / f"{relation_name}*.pt"
-        cache_files = list(cache_pattern.parent.glob(cache_pattern.name))
-
-        if not cache_files:
-            print(f"Warning: No cache files found for pattern: {cache_pattern}")
-            continue
-
-        # 複数のファイルがある場合は最初のファイルを使用 (要改善: 複数ファイルがある場合の適切な処理を加える必要あり)
-        cache_path = cache_files[0]
-        if len(cache_files) > 1:
-            print(f"Info: Multiple cache files found, using: {cache_path}")
-
-        cache = torch.load(cache_path, map_location=device, weights_only=False)
-
-        # 各スコアを別々の pickle ファイルとして保存
-        for score_type in ["self_scores", "subject_scores", "relation_scores"]:
-            get_head_scores(
-                scores_dir=output_dir,
-                score_type=score_type,  # type: ignore
-                metric=metric,
-                relation_type=relation_type,
-                relation_name=relation_name,
-                model=model,
-                cache=cache,
-                df=df,
-                prompt_col=prompt_col,
-                save_scores=True,  # スコアを保存する
-            )
-
-
-if __name__ == "__main__":
-    main(
-        model_name="gpt2-small",
-        cache_dir="out/cache",
-        dataset_dir="data/filtered_gpt2_small",
-        output_dir="out/head_scores",
-        prompt_col="clean",
-        metric="pearson",
-    )
