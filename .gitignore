@@ -23,4 +23,18 @@ env/
 Thumbs.db
 
 # サーキット図
-demo/figures/
+demo/figures/*
+!demo/figures/
+!demo/figures/single/
+demo/figures/single/*
+!demo/figures/single/city_in_country_n200.svg
+!demo/figures/single/city_in_country_p50.svg
+!demo/figures/single/company_hq_n200.svg
+!demo/figures/single/company_hq_p50.svg
+!demo/figures/intersection/
+demo/figures/intersection/*
+!demo/figures/intersection/city_in_country_company_hq_n200.svg
+!demo/figures/intersection/city_in_country_company_hq_p50.svg
+!demo/figures/intersection/company_hq_city_in_country_n200.svg
+!demo/figures/intersection/company_hq_city_in_country_p50.svg
+!demo/figures/intersection/city_in_country_company_hq_landmark_in_country_landmark_on_continent_plays_pro_sport_product_by_company_star_constellation_name_task_person_type_work_location_p40.svg

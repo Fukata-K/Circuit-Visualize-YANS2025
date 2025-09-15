@@ -1,6 +1,6 @@
 import pickle
 from pathlib import Path
-from typing import Optional, Union
+from typing import Any
 
 import pandas as pd
 from transformer_lens import HookedTransformer
@@ -16,6 +16,57 @@ from paths import (
     image_to_base64,
 )
 from visual_style import MAX_EDGE_COUNT
+
+
+def format_text(relation_name: str) -> str:
+    """Relation name を画面表示用にフォーマットする関数."""
+    return relation_name.replace("_", " ").title()
+
+
+def get_available_relations(data_dir: str = "data/filtered_gpt2_small") -> list[str]:
+    """利用可能な Relation 名のリストを取得する関数."""
+    data_path = Path(data_dir)
+    relations = [f.stem for f in data_path.glob("**/*.csv")]
+    return sorted(relations)
+
+
+def get_svg_path_from_config(
+    relation_name: str,
+    edge_selection_mode: str,
+    topn: int,
+    score_threshold: float | None,
+    other_relation: str | list[str] | None = None,
+    set_operation_mode: str | None = None,
+) -> Path:
+    """設定に基づいて SVG パスを取得するヘルパー関数."""
+    return get_svg_path(
+        base_relation=relation_name,
+        topn=topn if edge_selection_mode == "Top-N Edges" else None,
+        perf_percent=score_threshold if edge_selection_mode == "Performance" else None,
+        other_relation=other_relation,
+        set_operation_mode=set_operation_mode,
+    )
+
+
+def generate_individual_circuits(
+    model: HookedTransformer, relations: list[str], config: dict[str, Any]
+) -> None:
+    """個別サーキットを生成する関数."""
+    for relation in relations:
+        svg_path = get_svg_path_from_config(
+            relation,
+            config["edge_selection_mode"],
+            config["topn"],
+            config["score_threshold"],
+        )
+        if not svg_path.exists():
+            generate_circuit_svg(
+                model=model,
+                relation_name=relation,
+                svg_path=svg_path,
+                topn=config["topn"],
+                score_threshold=config["score_threshold"],
+            )
 
 
 def apply_score_threshold_to_graph(
@@ -73,7 +124,7 @@ def apply_score_threshold_to_graph(
 def apply_circuit_threshold(
     circuit: Circuit,
     relation_name: str,
-    score_threshold: Optional[float] = None,
+    score_threshold: float | None = None,
     topn: int = 200,
 ) -> Circuit:
     """
@@ -82,7 +133,7 @@ def apply_circuit_threshold(
     Args:
         circuit (Circuit): 処理対象の Circuit オブジェクト.
         relation_name (str): Relation 名 (例: "city_in_country").
-        score_threshold (float, optional): スコアの閾値. None の場合は topn を適用.
+        score_threshold (float | None): スコアの閾値. None の場合は topn を適用.
         topn (int): フォールバック用のトップ N 要素数.
 
     Returns:
@@ -120,9 +171,9 @@ def generate_circuit_svg(
     relation_name: str,
     df_base_dir: str = "data/filtered_gpt2_small",
     circuit_base_dir: str = "out/scored_graphs_gpt2_small/pt",
-    svg_path: Union[str, Path] = "demo/figures/circuit.svg",
+    svg_path: str | Path = "demo/figures/circuit.svg",
     topn: int = 200,
-    score_threshold: Optional[float] = None,
+    score_threshold: float | None = None,
     attention_patterns_dir: str = "out/attention_patterns",
     head_scores_dir: str = "out/head_scores",
 ) -> None:
@@ -134,9 +185,9 @@ def generate_circuit_svg(
         relation_name (str): Relation 名 (例: "city_in_country").
         df_base_dir (str): データフレームファイルのベースディレクトリ.
         circuit_base_dir (str): Circuit ファイルのベースディレクトリ.
-        svg_path (str): 出力 SVG ファイルのパス.
+        svg_path (str | Path): 出力 SVG ファイルのパス.
         topn (int): Circuit で使用するトップ N 要素数.
-        score_threshold (float, optional): スコアの閾値. None の場合は適用しない.
+        score_threshold (float | None): スコアの閾値. None の場合は適用しない.
         attention_patterns_dir (str): Attention Pattern 画像のディレクトリ.
         head_scores_dir (str): Head Score のディレクトリ.
 
@@ -191,9 +242,9 @@ def generate_circuit_multi_set_operation_svg(
     mode: str = "intersection",
     df_base_dir: str = "data/filtered_gpt2_small",
     circuit_base_dir: str = "out/scored_graphs_gpt2_small/pt",
-    svg_path: Union[str, Path] = "demo/figures/circuit.svg",
+    svg_path: str | Path = "demo/figures/circuit.svg",
     topn: int = 200,
-    score_threshold: Optional[float] = None,
+    score_threshold: float | None = None,
     attention_patterns_dir: str = "out/attention_patterns",
     head_scores_dir: str = "out/head_scores",
 ) -> None:
@@ -210,9 +261,9 @@ def generate_circuit_multi_set_operation_svg(
             - "difference" (差集合)
         df_base_dir (str): データフレームファイルのベースディレクトリ.
         circuit_base_dir (str): Circuit ファイルのベースディレクトリ.
-        svg_path (str): 出力 SVG ファイルのパス.
+        svg_path (str | Path): 出力 SVG ファイルのパス.
         topn (int): Circuit で使用するトップ N 要素数.
-        score_threshold (float, optional): スコアの閾値. None の場合は適用しない.
+        score_threshold (float | None): スコアの閾値. None の場合は適用しない.
         attention_patterns_dir (str): Attention Pattern 画像のディレクトリ.
         head_scores_dir (str): Head Score のディレクトリ.
 
@@ -290,9 +341,9 @@ def generate_circuit_pairwise_set_operation_svg(
     mode: str = "intersection",
     df_base_dir: str = "data/filtered_gpt2_small",
     circuit_base_dir: str = "out/scored_graphs_gpt2_small/pt",
-    svg_path: Union[str, Path] = "demo/figures/circuit.svg",
+    svg_path: str | Path = "demo/figures/circuit.svg",
     topn: int = 200,
-    score_threshold: Optional[float] = None,
+    score_threshold: float | None = None,
     attention_patterns_dir: str = "out/attention_patterns",
     head_scores_dir: str = "out/head_scores",
 ) -> None:
@@ -310,9 +361,9 @@ def generate_circuit_pairwise_set_operation_svg(
             - "weighted_difference" (重み付き差集合)
         df_base_dir (str): データフレームファイルのベースディレクトリ.
         circuit_base_dir (str): Circuit ファイルのベースディレクトリ.
-        svg_path (str): 出力 SVG ファイルのパス.
+        svg_path (str | Path): 出力 SVG ファイルのパス.
         topn (int): Circuit で使用するトップ N 要素数.
-        score_threshold (float, optional): スコアの閾値. None の場合は適用しない.
+        score_threshold (float | None): スコアの閾値. None の場合は適用しない.
         attention_patterns_dir (str): Attention Pattern 画像のディレクトリ.
         head_scores_dir (str): Head Score のディレクトリ.
 
@@ -387,7 +438,7 @@ def create_all_circuit_pairwise_set_operation_svg(
     model: HookedTransformer,
     relation_list: list[str],
     topn: int = 200,
-    score_threshold: Optional[float] = None,
+    score_threshold: float | None = None,
     mode: str = "intersection",
 ) -> None:
     """
@@ -397,7 +448,7 @@ def create_all_circuit_pairwise_set_operation_svg(
         model (HookedTransformer): HookedTransformer モデル.
         relation_list (list[str]): Relation 名のリスト.
         topn (int): Circuit で使用するトップ N 要素数.
-        score_threshold (float, optional): スコアの閾値. None の場合は適用しない.
+        score_threshold (float | None): スコアの閾値. None の場合は適用しない.
         mode (str): 集合演算の種類. "intersection", "union", "difference", "weighted_difference" から選択.
 
     Returns:
@@ -408,7 +459,6 @@ def create_all_circuit_pairwise_set_operation_svg(
             if base_relation == other_relation:
                 continue
 
-            # SVG パスを生成 (スコアしきい値または top-n)
             svg_path = get_svg_path(
                 base_relation=base_relation,
                 other_relation=other_relation,
