@@ -218,9 +218,9 @@ def generate_circuit_svg(
         else:
             urls[node.name] = ""
 
-    # エッジ数が多すぎる場合は Circuit をリセット (何も表示されない画像を生成)
+    # エッジ数が多すぎる場合は MAX_EDGE_COUNT にトリム
     if circuit.count_included_edges() > MAX_EDGE_COUNT:
-        circuit.reset()
+        circuit.apply_topn(MAX_EDGE_COUNT)
 
     # Circuit の SVG を生成して保存
     save_circuit_image(
@@ -319,9 +319,9 @@ def generate_circuit_multi_set_operation_svg(
     else:
         raise ValueError(f"Unknown mode: {mode}")
 
-    # エッジ数が多すぎる場合は Circuit をリセット (何も表示されない画像を生成)
+    # エッジ数が多すぎる場合は MAX_EDGE_COUNT にトリム
     if base_circuit.count_included_edges() > MAX_EDGE_COUNT:
-        base_circuit.reset()
+        base_circuit.apply_topn(MAX_EDGE_COUNT)
     save_circuit_image(
         model=model,
         cache=None,
@@ -419,9 +419,9 @@ def generate_circuit_pairwise_set_operation_svg(
     else:
         raise ValueError(f"Unknown mode: {mode}")
 
-    # エッジ数が多すぎる場合は Circuit をリセット (何も表示されない画像を生成)
+    # エッジ数が多すぎる場合は MAX_EDGE_COUNT にトリム
     if base_circuit.count_included_edges() > MAX_EDGE_COUNT:
-        base_circuit.reset()
+        base_circuit.apply_topn(MAX_EDGE_COUNT)
     save_circuit_image(
         model=model,
         cache=None,

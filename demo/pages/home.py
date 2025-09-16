@@ -20,6 +20,9 @@ def display_settings_info(config: dict[str, Any]) -> None:
         st.info(f"**Top-N**：{config['topn']} edges")
     elif config["score_threshold"] is not None:
         st.info(f"**性能の閾値**：{int(config['score_threshold'] * 100)}%")
+        st.warning(
+            "注意：エッジ数が多すぎる場合は自動的にトリムされます。(上限 3000 本)"
+        )
 
 
 def display_svg_grid(relations: list[str], config: dict[str, Any]) -> None:
@@ -79,7 +82,9 @@ def render_circuits_sidebar() -> dict[str, Any]:
 
     # エッジ選択方法
     edge_selection_mode = st.sidebar.radio(
-        "エッジ選択方法：", ["Top-N Edges", "Performance"]
+        "エッジ選択方法：",
+        ["Top-N Edges", "Performance"],
+        help="Top-N Edges は N 本のエッジを選択し、Performance は性能が閾値を超えるまでエッジを追加します。",
     )
 
     config = {
@@ -93,7 +98,15 @@ def render_circuits_sidebar() -> dict[str, Any]:
         else 200
     )
     config["score_threshold"] = (
-        st.sidebar.slider("閾値 (%)：", 0, 100, 50, 10) / 100.0
+        st.sidebar.slider(
+            "閾値 (%)：",
+            0,
+            100,
+            50,
+            10,
+            help="サーキットに求める Exact Match の正答率を設定します。",
+        )
+        / 100.0
         if edge_selection_mode == "Performance"
         else None
     )
@@ -149,12 +162,22 @@ def display_normal_circuits(model: HookedTransformer, config: dict[str, Any]) ->
 
 st.title("🏠️ ホーム")
 st.markdown("""
-Circuit Visualize Demo へようこそ！
+### Circuit Visualize Demo へようこそ！
 
-本デモでは，Transformer 型言語モデルにおける「サーキット」の可視化を行います．
+本デモでは、Transformer 型言語モデル ([GPT-2 Small](https://huggingface.co/openai-community/gpt2)) における「サーキット」の可視化を行ないます。
 
-以下では、基本的なサーキット表示機能を提供します。より高度な集合演算機能については「サーキット集合演算」ページをご利用ください。
+サーキットについての説明は「[ℹ️ サーキットとは？](./explain_circuit)」ページをご覧ください。
+
+また、サーキットの可視化はタスク内容と密接に関連しているため、「[🎯 タスクの説明](./task)」ページもあわせてご覧ください。
+
+以下では、基本的なサーキット表示機能を提供します。より高度な集合演算機能については「[🔬 サーキット集合演算](./set_operation)」ページをご利用ください。
+
+本ページや「[🔬 サーキット集合演算](./set_operation)」ページで提供するサーキット可視化ツールを使用した具体的な分析事例については「[📝 分析事例](./example)」ページをご覧ください。
 """)
+
+st.warning(
+    "各ページへの遷移やサーキット可視化ツールの設定は画面左のサイドバーから行なえます。"
+)
 
 st.divider()
 
@@ -162,3 +185,11 @@ st.divider()
 model = load_model()
 config = render_circuits_sidebar()
 display_normal_circuits(model, config)
+
+st.divider()
+
+st.markdown("""
+本デモは [YANS2025](https://yans.anlp.jp/entry/yans2025) の [S2-P03]「言語モデルの内部機序分析に向けたサーキットの可視化」
+深田 圭一 (東北大), Heinzerling Benjamin (理研/東北大), 坂口 慶祐 (東北大/理研) のものです。
+本デモのソースコードは [GitHub リポジトリ](https://github.com/Fukata-K/Circuit-Visualize-YANS2025) で公開されています。
+""")

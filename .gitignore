@@ -25,6 +25,7 @@ Thumbs.db
 # サーキット図
 demo/figures/*
 !demo/figures/
+!demo/figures/*.png
 !demo/figures/single/
 demo/figures/single/*
 !demo/figures/single/city_in_country_n200.svg

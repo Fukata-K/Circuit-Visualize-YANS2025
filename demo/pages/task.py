@@ -1,6 +1,7 @@
 import pandas as pd
 import streamlit as st
 import streamlit.components.v1 as components
+from PIL import Image
 
 from demo.core import load_model
 from demo.figure_utils import (
@@ -18,11 +19,16 @@ st.markdown("""
 
 具体的には、**主語 (subject)**、**関係 (relation)**、**目的語 (object)** の三つ組からなる知識を対象とし、
 与えられた主語と関係のペアから、正しい目的語を推論できるかを調べます。
+""")
 
+img = Image.open("demo/figures/task.png")
+st.image(img)
+
+st.markdown("""
 本デモでは、このような知識の中から以下の表に示す **9種類の関係** を選び、
 それぞれに対してサーキットを特定することで、言語モデルがどのように内部処理を行なっているかを分析します。
 
-サーキット特定方法については「ℹ️ サーキットとは？」のページをご覧ください。
+サーキット特定方法については「[ℹ️ サーキットとは？](./explain_circuit)」のページをご覧ください。
 """)
 
 # 9種類の関係を表で表示
@@ -88,6 +94,10 @@ df = pd.DataFrame(
 )
 st.table(df)
 
+st.markdown(
+    "データセットは[こちら](https://github.com/evandez/relations/tree/main/data)を使用しています。"
+)
+
 st.divider()
 
 # 評価方法の説明
@@ -112,7 +122,7 @@ st.markdown("""
 性能の閾値を変更することで、サーキットのサイズがどのように変化するかを観察してみてください。
 
 ここでの性能は、上記で説明した Exact Match の正答率を反映しており、
-指定した閾値を達成できる (今回のサーキット特定手法の中で) 最小のサーキットを表示します。
+指定した閾値を達成できる (今回の[サーキット特定手法の手順](./explain_circuit)上) 最小のサーキットを表示します。
 """)
 
 # サーキット表示の簡易デモ
@@ -192,6 +202,9 @@ if selected_relation:
     if svg_path.exists():
         st.markdown(f"### {format_text(selected_relation)} のサーキット")
         st.info(f"**性能の閾値**: {int(score_threshold * 100)}%")
+        st.warning(
+            "注意：エッジ数が多すぎる場合は自動的にトリムされます。(上限 3000 本)"
+        )
 
         html_content = create_svg_html_content(svg_path, max_height=max_height)
         components.html(html_content, height=max_height + 20, scrolling=False)
@@ -208,7 +221,7 @@ st.markdown("""
 
 ##### ノードの種類
 中央に縦1列に並んでいるノードは、Input、各層の MLP、Output です。  
-横に広がっているノードが Attention Head です。Head をクリックすると Attention Pattern が表示されます。
+横に広がっているノードが Attention Head です。**Head をクリック**すると Attention Pattern が表示されます。
 
 ##### ノードの色 / 形状
 Head の色は注目トークンの性質を表しています。  
@@ -218,9 +231,9 @@ Head の色は注目トークンの性質を表しています。
 
 ひし形のノードは自己参照的な Head です。
 
-Head をクリックして表示される Attention Pattern で確認してみてください。
+**Head をクリック**して表示される Attention Pattern で確認してみてください。
 
 ##### ノードの枠線の色
 枠線の色は目的語の出力順位を表しています。  
-各パーツの出力を logit lens に通して語彙空間に射影したときに、目的語が上位に来るほど枠線が緑色に近くなります。
+各ノードの出力を logit lens に通して語彙空間に射影したときに、目的語が上位に来るほどノードの枠線が緑色に近くなります。
 """)
